@@ -16,7 +16,7 @@ public class Teacher extends Person{
         this.subject = subject;
     }
 
-    public void showInfo() {
+    public void showAllInfo() {
 
     }
 }

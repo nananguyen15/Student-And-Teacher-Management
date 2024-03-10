@@ -73,10 +73,10 @@ public class CheckIValidInput{
                 String expectedEmail2 = "";
                 //If the name contains only 1 word, the email will be in the format:
                 if (nameEmail.length == 1) {
-                    expectedEmail1 = nameEmail[0] + "." + ID + "@fpt.edu.vn";
-                    expectedEmail2 = nameEmail[0] + "." + ID + "@gmail.com";
+                    expectedEmail1 = nameEmail[0].toLowerCase() + "." + ID + "@fpt.edu.vn";
+                    expectedEmail2 = nameEmail[0].toLowerCase() + "." + ID + "@gmail.com";
 
-                 //If the name contains more than 1 word
+                    //If the name contains more than 1 word
                 } else {
                     //using StringBuilder instead of String because it's an easy modifier and faster.
                     StringBuilder acronym = new StringBuilder();
@@ -89,8 +89,9 @@ public class CheckIValidInput{
                     //    for (int i = 0; i < nameEmail.length - 1; i++) {
                     //        acronym += nameEmail[i].charAt(0);
                     //    }
-                    expectedEmail1 = nameEmail[nameEmail.length - 1] + acronym + "." + ID + "@fpt.edu.vn";
-                    expectedEmail2 = nameEmail[nameEmail.length - 1] + acronym + "." + ID + "@gmail.com";
+                    String lowercaseAcronym = acronym.toString().toLowerCase();
+                    expectedEmail1 = nameEmail[nameEmail.length - 1].toLowerCase() + lowercaseAcronym + "." + ID + "@fpt.edu.vn";
+                    expectedEmail2 = nameEmail[nameEmail.length - 1].toLowerCase() + lowercaseAcronym + "." + ID + "@gmail.com";
                 }
                 String email = sc.nextLine().trim();
 
@@ -103,16 +104,16 @@ public class CheckIValidInput{
                     //If the first 2 numbers of the ID are less than or equal to 18, the email will be extended with @fpt.edu.vn
                     if (Integer.parseInt(numericPartOfId.substring(0, 2)) <= 18) {
                         if (!email.equalsIgnoreCase(expectedEmail1))
-                            throw new IllegalArgumentException("Invalid Email. The email must be in the format: 'name.acronym.id@fpt.edu.vn'.\nPlease enter again!");
-                   //If the first 2 numbers of the ID are greater than 18, the email will be extended with @gmail.com
+                            throw new IllegalArgumentException("Invalid Email. The email must be in the format: 'nameacronym.id@fpt.edu.vn'.\nPlease enter again!");
+                        //If the first 2 numbers of the ID are greater than 18, the email will be extended with @gmail.com
                     } else {
                         if (!email.equalsIgnoreCase(expectedEmail2))
-                            throw new IllegalArgumentException("Invalid Email. The email must be in the format: 'name.acronym.id@gmail.com'.\n");
+                            throw new IllegalArgumentException("Invalid Email. The email must be in the format: 'nameacronym.id@gmail.com'.\n");
                     }
-                //Case 2: If the person is a teacher:
+                    //Case 2: If the person is a teacher:
                 } else {
                     if (!email.equalsIgnoreCase(expectedEmail1))
-                        throw new IllegalArgumentException("Invalid Email. The email must be in the format: name.acronym.id@fpt.edu.vn'.\nPlease enter again!");
+                        throw new IllegalArgumentException("Invalid Email. The email must be in the format: nameacronym.id@fpt.edu.vn'.\nPlease enter again!");
                 }
                 break;
             } catch (IllegalArgumentException e) {
@@ -121,15 +122,47 @@ public class CheckIValidInput{
                 if (cnt >= 3) {
                     System.out.println("You have entered wrong email " + cnt + " times.\nDo you want see the guide to enter email again? (Y/N)");
                     String choice = sc.nextLine().toUpperCase();
-                    if (choice.equals("Y")) {
+                    if (personType.equals("student") && choice.equals("Y")) {
                         System.out.println("""
-                                The mail format is: 'name.acronym.id@fpt.edu.vn' or 'name.acronym.id@gmail.com'.
+                                The mail format is: 'nameacronym.id@fpt.edu.vn' or 'nameacronym.id@gmail.com'.
                                 *** Note about name and acronym:
                                 - If your full name is Nguyen Van A -> acronym is NV
                                                                     -> name is A
+                                                                    => 'ANV' is 'nameacronym' in the email.
+                                - If your full name is Nguyen Kieu Thy -> acronym is NK
+                                                                       -> name is Thy
+                                                                       => 'THYNK' is 'nameacronym' in the email.
+                                                                       
                                 *** Note about the extension of email:
-                                - If the ID contains 2 first number <=18, the extension of email must be: @fpt.edu.vn
-                                - If the ID contains 2 first number >18, the extension of email must be: @gmail.com""");
+                                - If the ID contains 2 first number <=18 in your ID, the extension of email must be: @fpt.edu.vn
+                                - If the ID contains 2 first number >18 in your ID, the extension of email must be: @gmail.com
+                                - Example: 
+                                    + Your ID is CE180000 -> @fpt.edu.vn (because 18 <= 18)
+                                    + Your ID is CE190000 -> @gmail.com (because 19 > 18)
+                                    
+                                *** Note about case-sensitive: 
+                                - It does not matter you enter uppercase or lowercase your ID or your name, because the program automatically convert your ID and your full name to lowercase when you enter email.
+                                - Example: 
+                                    + Your ID is CE180000 -> ce180000 (The program will convert to lowercase, so you can enter CE180000 or ce180000)
+                                    + Your full name is Nguyen Van A -> nguyen van a (Similarly, you can enter Nguyen Van A or nguyen van a)
+                                """);
+                    } else if (personType.equals("teacher") && choice.equals("Y")) {
+                        System.out.println("""
+                                The mail format is: 'nameacronym.id@fpt.edu.vn'
+                                *** Note about name and acronym:
+                                - If your full name is Nguyen Van A -> acronym is NV
+                                                                    -> name is A
+                                                                    => 'ANV' is 'nameacronym' in the email.
+                                - If your full name is Nguyen Kieu Thy -> acronym is NK
+                                                                       -> name is Thy
+                                                                       => 'THYNK' is 'nameacronym' in the email.
+                                                                       
+                                *** Note about case-sensitive: 
+                                - It does not matter you enter uppercase or lowercase your ID or your name, because the program automatically convert your ID and your full name to lowercase when you enter email.
+                                - Example: 
+                                    + Your ID is FS180000 -> fs180000 (The program will convert to lowercase, so you can enter FS180000 or fs180000)
+                                    + Your full name is Nguyen Van A -> nguyen van a (Similarly, you can enter Nguyen Van A or nguyen van a)
+                                """);
                     } else {
                         System.out.println("Ok. Please enter the email again!");
                     }
@@ -148,7 +181,7 @@ public class CheckIValidInput{
                 //Using parseInt to convert the string to an integer
                 String phoneNumber = sc.nextLine().trim();
                 //Using regex to check if the phone number has 10 numbers and starts with 0
-                if (!(Pattern.matches("^0\\d{9}",phoneNumber)))
+                if (!(Pattern.matches("^0\\d{9}", phoneNumber)))
                     throw new IllegalArgumentException("Invalid input. The phone number must have 10 numbers and start with 0.\nPlease enter again!");
                 break;
             } catch (IllegalArgumentException e) {
@@ -197,7 +230,7 @@ public class CheckIValidInput{
                     }
                 }
                 //If the month is january, march, may, july, august, october, december, the day of birth must be <=31
-                else if (month == 1 || month == 3 || month ==4 || month == 7 || month ==8 || month == 10 || month == 12) {
+                else if (month == 1 || month == 3 || month == 4 || month == 7 || month == 8 || month == 10 || month == 12) {
                     if (day > 31) {
                         throw new IllegalArgumentException("Invalid input. The day of birth must be >=1 and <= 31.\nPlease enter again!");
                     }
@@ -223,8 +256,8 @@ public class CheckIValidInput{
             try {
                 System.out.print("Enter salary of teacher: ");
                 int salary = Integer.parseInt(sc.nextLine());
-//                if (!sc.hasNextInt())
-//                    throw new IllegalArgumentException("Invalid input. The salary must be a number.\nPlease enter again!");
+                //                if (!sc.hasNextInt())
+                //                    throw new IllegalArgumentException("Invalid input. The salary must be a number.\nPlease enter again!");
                 if (salary < 20_000_000) {
                     throw new IllegalArgumentException("Invalid input. The salary must be >= 20,000,000.\nPlease enter again!");
                 }
@@ -274,21 +307,21 @@ public class CheckIValidInput{
     public static void checkSubject() {
         Scanner sc = new Scanner(System.in);
         do {
-            try{
+            try {
                 System.out.print("Enter subject teaching for teacher: ");
                 String subject = sc.nextLine().trim().toUpperCase();
                 //If the subject contains any special characters or numbers or be empty, it will throw an exception
                 if (!Pattern.matches("[a-zA-Z]+", subject))
                     throw new IllegalArgumentException("Invalid input. The subject must have only words.\nPlease enter again!");
                 //If the subject is not MAD, OSG, NWC, PRO, SSG, it will throw an exception
-                if (!subject.equals("MAD") && !subject.equals("OSG") && !subject.equals("NWC") &&
-                        !subject.equals("PRO") && subject.equals("SSG")) {
+                if (!subject.equals("MAD") && !subject.equals("OSG") && !subject.equals("NWC") && !subject.equals("PRO") && subject.equals("SSG")) {
                     throw new IllegalArgumentException("Invalid input. The subject must be MAD/ OSG/ NWC/ PRO/ SSG.\nPlease enter again!");
                 }
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-        } while (true);
+        }
+        while (true);
     }
 }

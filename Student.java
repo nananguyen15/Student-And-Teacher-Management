@@ -14,7 +14,8 @@ public class Student extends Person {
         this.GPA = GPA;
     }
 
-    public void showInfo() {
+
+    public void showIAllnfo() {
 
     }
 }
