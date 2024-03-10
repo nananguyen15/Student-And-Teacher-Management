@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TeacherManagement{
 
     public static void sortTeacher() {
@@ -42,20 +45,22 @@ public class TeacherManagement{
     }
 
     public static void addNewTeacher() {
+        System.out.println("---- ADD NEW TEACHER ----");
+        List<Teacher> teacherList = new ArrayList<>();
         //full name
-
+        String name = CheckIValidInput.checkValidName("teacher");
         //ID
-
+        String teacherID = CheckIValidInput.checkID("teacher");
         //Date of birth
-
+        CheckIValidInput.checkDateOfBirth("teacher");
         //Email
-
+        CheckIValidInput.checkEmail(teacherID, "teacher", name);
         //Phone number
-
+        CheckIValidInput.checkPhoneNumber("teacher");
         //Salary
-
+        CheckIValidInput.checkValidSalary();
         //Subject
-
+        CheckIValidInput.checkSubject();
     }
 }
 
