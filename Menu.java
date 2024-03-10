@@ -13,8 +13,8 @@ public class Menu{
         System.out.println("\t| 1. Add new student\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 2. Show all students\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 3. Delete a/all student(s)\t\t\t\t\t\t\t\t|");
-        System.out.println("\t| 4. Search student by ID/name/ Date of Birth/ GPA\t\t\t|");
-        System.out.println("\t| 5. Sort ascending/ descending based on GPA\t\t\t\t|");
+        System.out.println("\t| 4. Search student by name/ID/Age/Email/Phone number/GPA\t|");
+        System.out.println("\t| 5. Sort ascending/ descending\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 6. Exit\t\t\t\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t*-----------------------------------------------------------*");
         System.out.print("Enter your choice: ");
@@ -25,8 +25,8 @@ public class Menu{
         System.out.println("\t| 1. Add new teacher\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 2. Show all teachers\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 3. Delete a/all teacher(s)\t\t\t\t\t\t\t\t|");
-        System.out.println("\t| 4. Search teacher by ID/name/ Date of Birth/ Salary/ Subject\t|");
-        System.out.println("\t| 5. Sort ascending/ descending\t\t\t\t|");
+        System.out.println("\t| 4. Search teacher by Name/ID/Age/Email/Salary/Subject\t\t|");
+        System.out.println("\t| 5. Sort ascending/ descending\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 6. Exit\t\t\t\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t*-----------------------------------------------------------*");
         System.out.print("Enter your choice: ");

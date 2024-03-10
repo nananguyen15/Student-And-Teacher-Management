@@ -4,24 +4,6 @@ import java.util.regex.Pattern;
 public class CheckIValidInput{
     private static int cnt = 0;
 
-    public static void onlyIntNumber() {
-        Scanner sc = new Scanner(System.in);
-        try {
-            int number = Integer.parseInt(sc.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input, please enter a number");
-        }
-    }
-
-    public static void onlyDoubleNumber() {
-        Scanner sc = new Scanner(System.in);
-        try {
-            double number = Double.parseDouble(sc.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input, please enter a double number");
-        }
-    }
-
     //Function to check valid name
     public static String checkValidName(String personType) {
         Scanner sc = new Scanner(System.in);
@@ -164,9 +146,9 @@ public class CheckIValidInput{
             try {
                 System.out.print("Enter " + personType + "'s phone number: ");
                 //Using parseInt to convert the string to an integer
-                int phoneNumber = Integer.parseInt(sc.nextLine());
+                String phoneNumber = sc.nextLine().trim();
                 //Using regex to check if the phone number has 10 numbers and starts with 0
-                if (!(Pattern.matches("0\\d{9}", String.valueOf(phoneNumber))))
+                if (!(Pattern.matches("^0\\d{9}",phoneNumber)))
                     throw new IllegalArgumentException("Invalid input. The phone number must have 10 numbers and start with 0.\nPlease enter again!");
                 break;
             } catch (IllegalArgumentException e) {
@@ -267,11 +249,11 @@ public class CheckIValidInput{
         String[] subjects = {"MAD", "OSG", "NWC", "PRO", "SSG"};
         do {
             try {
-                System.out.print("Enter score of student: ");
+                System.out.println("Enter score of student: ");
 
                 //Using for each loop to loop through the array of subjects
                 for (String subject : subjects) {
-                    System.out.println("- " + subject + ": ");
+                    System.out.print("- " + subject + ": ");
                     double score = Double.parseDouble(sc.nextLine());
                     //If the score is less than 0 or greater than 10, it will throw an exception
                     if (score < 0 || score > 10)
@@ -288,18 +270,22 @@ public class CheckIValidInput{
         while (true);
     }
 
+    //Function to check valid subject
     public static void checkSubject() {
         Scanner sc = new Scanner(System.in);
         do {
             try{
-                System.out.println("Enter subject teaching for teacher: ");
-                String subject = sc.nextLine().trim();
+                System.out.print("Enter subject teaching for teacher: ");
+                String subject = sc.nextLine().trim().toUpperCase();
+                //If the subject contains any special characters or numbers or be empty, it will throw an exception
                 if (!Pattern.matches("[a-zA-Z]+", subject))
                     throw new IllegalArgumentException("Invalid input. The subject must have only words.\nPlease enter again!");
-                if (!subject.equalsIgnoreCase("MAD") || !subject.equalsIgnoreCase("OSG") || !subject.equalsIgnoreCase("NWC") ||
-                        !subject.equalsIgnoreCase("PRO") || subject.equalsIgnoreCase("SSG")) {
+                //If the subject is not MAD, OSG, NWC, PRO, SSG, it will throw an exception
+                if (!subject.equals("MAD") && !subject.equals("OSG") && !subject.equals("NWC") &&
+                        !subject.equals("PRO") && subject.equals("SSG")) {
                     throw new IllegalArgumentException("Invalid input. The subject must be MAD/ OSG/ NWC/ PRO/ SSG.\nPlease enter again!");
                 }
+                break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

@@ -46,20 +46,30 @@ public class TeacherManagement{
 
     public static void addNewTeacher() {
         System.out.println("---- ADD NEW TEACHER ----");
+        //Using List to store teacher
         List<Teacher> teacherList = new ArrayList<>();
-        //full name
+        //full name: not empty, digits, and special characters
         String name = CheckIValidInput.checkValidName("teacher");
-        //ID
+
+        //ID:  not the same ID as the entered ID, not empty, 8 characters: The first two characters are words (FS); the others are digits.
+        //     if entering an existing ID, print an error message: “This xx already exists !” and require entry again.  (xx is the ID you enter)
         String teacherID = CheckIValidInput.checkID("teacher");
-        //Date of birth
+
+        //Date of birth: not empty, format: dd/mm/yyyy
+        //Note: check valid month, date (based on month), and year will be <=2017 and >= 1825.
         CheckIValidInput.checkDateOfBirth("teacher");
-        //Email
+
+        //Email: no empty,the email must contain First name + acronym of Middle name and Last name +“ . “ + id + the extension “fpt.edu.vn”
         CheckIValidInput.checkEmail(teacherID, "teacher", name);
-        //Phone number
+
+        //Phone number: not empty, only digits and must have 10 digits, must have 0 at first.
         CheckIValidInput.checkPhoneNumber("teacher");
-        //Salary
+
+        //Salary: not empty, only digits, and must be >= 20_000_000.
         CheckIValidInput.checkValidSalary();
-        //Subject
+
+        //Subject: not empty, not digits, and special characters;
+        //The subject must be in the list of subjects: MAD, PRO, NWC, SSG, OSG.
         CheckIValidInput.checkSubject();
     }
 }

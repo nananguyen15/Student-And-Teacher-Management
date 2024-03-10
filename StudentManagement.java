@@ -57,7 +57,7 @@ public class StudentManagement{
         String studentID = CheckIValidInput.checkID("student");
 
         //Date of birth: not empty, format: dd/mm/yyyy
-        //Note: check valid date based on month, and year will be <2024 and >=1900. If the day or month the user enters does not have 0 before a number <10, it will automatically add 0 before it.
+        //Note: check valid date based on month, and year will be <=2017 and >=1825. If the day or month the user enters does not have 0 before a number <10, it will automatically add 0 before it.
         CheckIValidInput.checkDateOfBirth("student");
 
         //Email: no empty,the email must contain First name + acronym of Middle name and Last name +“ . “ + id + the extension “@gmail.com” or “fpt.edu.vn”
