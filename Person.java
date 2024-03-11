@@ -53,7 +53,7 @@ public abstract class Person{
         this.phoneNumber = phoneNumber;
     }
 
-    public void showAllInfo(){
+    public void showAllInfo() {
 
     }
 

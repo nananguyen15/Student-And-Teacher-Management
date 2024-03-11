@@ -1,8 +1,8 @@
-public class Student extends Person {
+public class Student extends Person{
     private GPACalculate GPA;
 
     public Student(String name, String id, String dateOfBirth, String email, int phoneNumber, GPACalculate GPA) {
-        super (name, id, dateOfBirth, email, phoneNumber);
+        super(name, id, dateOfBirth, email, phoneNumber);
         this.GPA = GPA;
     }
 

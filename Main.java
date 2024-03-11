@@ -29,6 +29,7 @@ public class Main{
                     System.out.println("The function of application must be from 1 to 6!\n" + "Please choose again!");
                     break;
             }
-        } while (true);
+        }
+        while (true);
     }
 }

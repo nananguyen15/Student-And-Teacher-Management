@@ -1,5 +1,5 @@
 public class Menu{
-    public static void mainMenu(){
+    public static void mainMenu() {
         System.out.println("\t*---------------- MANAGEMENT SYSTEM ----------------*");
         System.out.println("\t| 1. Student Management\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 2. Teacher Management\t\t\t\t\t\t\t\t|");
@@ -8,7 +8,7 @@ public class Menu{
         System.out.print("Enter your choice: ");
     }
 
-    public static void menuStudentMangament(){
+    public static void menuStudentMangament() {
         System.out.println("\t*---------------- STUDENT MANAGEMENT SYSTEM ----------------*");
         System.out.println("\t| 1. Add new student\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 2. Show all students\t\t\t\t\t\t\t\t\t\t|");
@@ -20,7 +20,7 @@ public class Menu{
         System.out.print("Enter your choice: ");
     }
 
-    public static void menuTeacherMangament(){
+    public static void menuTeacherMangament() {
         System.out.println("\t*---------------- TEACHER MANAGEMENT SYSTEM ----------------*");
         System.out.println("\t| 1. Add new teacher\t\t\t\t\t\t\t\t\t\t|");
         System.out.println("\t| 2. Show all teachers\t\t\t\t\t\t\t\t\t\t|");
@@ -33,8 +33,7 @@ public class Menu{
     }
 
     public static void exit() {
-        System.out.println("THANK YOU FOR USING OUR APPLICATION.\n" +
-                "SEE YOU AGAIN!");
+        System.out.println("THANK YOU FOR USING OUR APPLICATION.\n" + "SEE YOU AGAIN!");
         System.exit(0);
     }
 

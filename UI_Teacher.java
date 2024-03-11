@@ -10,11 +10,10 @@ public class UI_Teacher{
             while (!sc.hasNextInt()) {
                 System.out.println("The function of application must be from 1 to 6!\n");
                 sc.nextLine();
-                Menu.menuTeacherMangament();;
+                Menu.menuTeacherMangament();
             }
             int choice = sc.nextInt();
             sc.nextLine();
-
             switch (choice) {
                 case 1:
                     TeacherManagement.addNewTeacher();
