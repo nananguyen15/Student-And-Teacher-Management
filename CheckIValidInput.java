@@ -13,6 +13,19 @@ public class CheckIValidInput{
                 System.out.print("Enter " + personType + "'s full name: ");
                 str = sc.nextLine();
 
+                String[] name = str.split(" ");
+                //name[i].substring(0, 1).toUpperCase() converts the first character of each word to uppercase
+                //name[i].substring(1).toLowerCase() converts the rest of the word to lowercase
+                for (int i = 0; i< name.length; i++){
+                    name[i] = name[i].substring(0,1).toUpperCase() + name[i].substring(1).toLowerCase();
+                }
+                //C2:
+                //for (int i = 0; i < name.length; i++){
+                //                char firstChar = name[i].charAt(0);
+                //                firstChar = Character.toUpperCase(firstChar);
+                //                name[i] = firstChar + name[i].substring(1).toLowerCase();
+                //            }
+                str = String.join(" ", name);
                 //If the name contains any special characters or numbers or be empty, it will throw an exception
                 if (!Pattern.matches("^[a-zA-Z]+(\\s[a-zA-Z]+)*$", str))
                     throw new IllegalArgumentException("Invalid input. The input must have only words.\nPlease enter again!");
