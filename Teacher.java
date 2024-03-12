@@ -2,10 +2,11 @@ public class Teacher extends Person{
     private String subject;
     private double salary;
 
-    public Teacher(String name, String id, String dateOfBirth, String email, int phoneNumber, String subject, double salary) {
+    public Teacher(String name, String id, String dateOfBirth, String[] email, String phoneNumber, double salary, String subject) {
         super(name, id, dateOfBirth, email, phoneNumber);
-        this.subject = subject;
         this.salary = salary;
+        this.subject = subject;
+
     }
 
     public String getSubject() {
@@ -16,7 +17,21 @@ public class Teacher extends Person{
         this.subject = subject;
     }
 
-    public void showAllInfo() {
+    public Double getSalary() {
+        return salary;
+    }
 
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public void showAllInfoTeacher() {
+        System.out.println("Name: " + getName());
+        System.out.println("ID: " + getId());
+        System.out.println("Date of Birth: " + getDateOfBirth());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Phone Number: " + getPhoneNumber());
+        System.out.println("Subject: " + getSubject());
+        System.out.println("Salary: " + getSalary());
     }
 }

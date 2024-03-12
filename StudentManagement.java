@@ -117,9 +117,22 @@ public class StudentManagement {
         // Continue coding here:
     }
 
+    private static List<Student> studentList = new ArrayList<>();
+
     public static void showAllStudent() {
-        System.out.println("---- SHOW ALL STUDENTS ----");
-        // Continue coding here:
+        System.out.println("---------------------------------------------------- SHOW ALL STUDENTS ---------------------------------------");
+        System.out.println("| No. | Name   | ID           | Date of birth      | Email                       | Phone        |GPA         |");
+        System.out.println("+-----+--------+--------------+--------------------+-----------------------------+--------------+------------+");
+
+        for (int i = 0; i < studentList.size(); i++) {
+            Student student = studentList.get(i);
+            double gpa = student.getAverageScore(); // Calculate GPA
+            System.out.printf("| %-4d| %-7s| %-13s| %-19s| %-14s| %-13s| %-11.2f|%n",
+                    i + 1, student.getId(), student.getName(), student.getDateOfBirth(), student.getEmail(),
+                    student.getPhoneNumber(), student.getGPA());
+        }
+
+        System.out.println("+-----+--------+--------------+--------------------+-----------------------------+--------------+------------+");
     }
 
     public static void addNewStudent() {
@@ -127,7 +140,6 @@ public class StudentManagement {
         // Using List to store student
         // Using List in this case because it is straightforward to add, delete, and
         // search student
-        List<Student> studentList = new ArrayList<>();
         // full name: not empty, digits, and special characters
         String name = CheckIValidInput.checkValidName("student");
 
@@ -141,7 +153,7 @@ public class StudentManagement {
         // Note: check valid date based on month, and year will be <=2017 and >=1825. If
         // the day or month the user enters does not have 0 before a number <10, it will
         // automatically add 0 before it.
-        CheckIValidInput.checkDateOfBirth("student");
+        String dateOfBirth = CheckIValidInput.checkDateOfBirth("student");
 
         // Email: no empty,the email must contain First name + acronym of Middle name
         // and Last name +“ . “ + id + the extension “@gmail.com” or “fpt.edu.vn”
@@ -149,14 +161,17 @@ public class StudentManagement {
         // extension “@fpt.edu.vn”
         // else (>18) the email must use the extension “@gmail.com”
         // * Note 2: the string id in the email must be lowercase.
-        CheckIValidInput.checkEmail(studentID, "student", name);
+        String[] email = CheckIValidInput.checkEmail(studentID, "student", name);
 
         // Phone number: not empty, only digits and must have 10 digits, must have 0 at
         // first.
-        CheckIValidInput.checkPhoneNumber("student");
+        String phoneNumber = CheckIValidInput.checkPhoneNumber("student");
 
         // GPA: no empty, >=0 and <=10, only numbers.
-        // Enter Score of MAD, OSG, NWC, PRO, SSG
-        CheckIValidInput.checkValidScore();
+// Enter Score of MAD, OSG, NWC, PRO, SSG
+        Double gpa = CheckIValidInput.checkValidScore();
+        Student newStudent = new Student(studentID,name,dateOfBirth,email,phoneNumber, gpa);
+        studentList.add(newStudent); 
+
     }
 }

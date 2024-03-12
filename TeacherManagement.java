@@ -38,18 +38,27 @@ public class TeacherManagement{
         //Continue coding here:
     }
 
+    private static final List<Teacher> teacherList = new ArrayList<>();
     public static void showAllTeachers() {
-        System.out.println("---- SHOW ALL TEACHERS ----");
-        //Continue coding here:
-        //The table must contain
+        System.out.println("------------------------------------------------ SHOW ALL TEACHERS ------------------------------------------------");
+        System.out.println("| No. | ID     | Name         | Date of birth | Email                       | Phone     | Salary     |Subject     |");
+        System.out.println("+-----+--------+--------------+---------------+-----------------------------+-----------+------------+------------+");
+
+        for (int i = 0; i < teacherList.size(); i++) {
+            Teacher teacher = teacherList.get(i);
+            System.out.printf("| %-4d| %-7s| %-13s| %-14s| %-14s| %-9s| %-11.2f| %-11s|%n",
+                    i+1, teacher.getId(), teacher.getName(), teacher.getDateOfBirth(), teacher.getEmail(),
+                    teacher.getPhoneNumber(), teacher.getSalary(), teacher.getSubject());
+        }
+        System.out.println("+-----+--------+--------------+---------------+-----------------------------+-----------+------------+------------+");
     }
 
     public static void addNewTeacher() {
         System.out.println("---- ADD NEW TEACHER ----");
         //Using List to store teacher
-        List<Teacher> teacherList = new ArrayList<>();
+        //  List<Teacher> teacherList = new ArrayList<>();
         //full name: not empty, digits, and special characters
-        String name = CheckIValidInput.checkValidName("teacher");
+        String name = CheckIValidInput.checkValidName("teacher"); // đặt tên biến
 
         //ID:  not the same ID as the entered ID, not empty, 8 characters: The first two characters are words (FS); the others are digits.
         //     if entering an existing ID, print an error message: “This xx already exists !” and require entry again.  (xx is the ID you enter)
@@ -57,20 +66,22 @@ public class TeacherManagement{
 
         //Date of birth: not empty, format: dd/mm/yyyy
         //Note: check valid month, date (based on month), and year will be <=2017 and >= 1825.
-        CheckIValidInput.checkDateOfBirth("teacher");
+        String dateOfBirth =  CheckIValidInput.checkDateOfBirth("teacher");
 
         //Email: no empty,the email must contain First name + acronym of Middle name and Last name +“ . “ + id + the extension “fpt.edu.vn”
-        CheckIValidInput.checkEmail(teacherID, "teacher", name);
+        String[] email = CheckIValidInput.checkEmail(teacherID, "teacher", name);
 
         //Phone number: not empty, only digits and must have 10 digits, must have 0 at first.
-        CheckIValidInput.checkPhoneNumber("teacher");
+        String phoneNumber =  CheckIValidInput.checkPhoneNumber("teacher");
 
         //Salary: not empty, only digits, and must be >= 20_000_000.
-        CheckIValidInput.checkValidSalary();
+        double salary = CheckIValidInput.checkValidSalary();
 
         //Subject: not empty, not digits, and special characters;
         //The subject must be in the list of subjects: MAD, PRO, NWC, SSG, OSG.
-        CheckIValidInput.checkSubject();
+        String subject = CheckIValidInput.checkSubject();
+
+        Teacher newTeacher = new Teacher(teacherID,name,dateOfBirth,email,phoneNumber,salary,subject);
+        teacherList.add(newTeacher);
     }
 }
-
