@@ -1,12 +1,14 @@
-public class Student extends Person {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student extends Person implements GPACalculate{
     private Double GPA;
     private List<Double> subjectScores; // List to store scores of 5 subjects
 
-
-    public Student(String name, String id, String dateOfBirth, String[] email, String phoneNumber, Double GPA) {
-        super (name, id, dateOfBirth, email, String.valueOf(phoneNumber));
+    public Student(String name, String id, String dateOfBirth, String email, String phoneNumber, Double GPA, List<Double> subjectScores) {
+        super(name, id, dateOfBirth, email, String.valueOf(phoneNumber));
         this.GPA = GPA;
-        this.subjectScores = new ArrayList<>();
+        this.subjectScores = subjectScores;
     }
 
     public Double getGPA() {
@@ -17,20 +19,35 @@ public class Student extends Person {
         this.GPA = GPA;
     }
 
-    // Method to add score for each subject
-    public void addScore(double score) {
-        subjectScores.add(score);
+    public List<Double> getSubjectScores() {
+        return subjectScores;
     }
 
-    // Method to get average score for all subjects
-    public double getAverageScore() {
-        double sum = 0.0;
-        for (Double score : subjectScores) {
-            sum += score;
+    @Override
+    public double calculateGPA(List<Double> scores) {
+        double totalScore = 0;
+        for (Double score : scores) {
+            totalScore += score;
         }
-        double GPA = sum/5;
-        return GPA;
+        return totalScore / scores.size();
     }
 
-    // Method to calculate GPA based on average score
+    @Override
+    public double ConvertGPA(double score) {
+        return GPACalculate.super.ConvertGPA(score);
+    }
+
+    public void setScores(List<Double> scores) {
+        this.subjectScores = scores;
+    }
+    @Override
+    public void showAllInfo() {
+        super.showAllInfo();
+        for (Double score : subjectScores) {
+            System.out.printf(" %-5.2f |", score);
+        }
+        System.out.printf(" %-5.2f |\n", getGPA());
+    }
+
+
 }

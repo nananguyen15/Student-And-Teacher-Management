@@ -1,9 +1,9 @@
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class StudentManagement {
+public class StudentManagement{
     public static void sortStudent(ArrayList<Student> students) {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -30,7 +30,8 @@ public class StudentManagement {
                 default:
                     System.out.println("Invalid choice.");
             }
-        } while (choice != 3);
+        }
+        while (choice != 3);
     }
 
     private static void sortStudentsAscending(ArrayList<Student> students) {
@@ -41,26 +42,26 @@ public class StudentManagement {
         System.out.println("4. GPA");
         System.out.print("Enter your choice: ");
 
-        int sortChoice = scanner.nextInt();
+        //        int sortChoice = sc.nextInt();
 
-        switch (sortChoice) {
-            case 1:
-                students.sort(Comparator.comparing(Student::getId));
-                break;
-            case 2:
-                students.sort(Comparator.comparing(Student::getName));
-                break;
-            case 3:
-                students.sort(Comparator.comparing(Student::getAge));
-                break;
-            case 4:
-                students.sort(Comparator.comparing(Student::getGpa));
-                break;
-            default:
-                System.out.println("Invalid choice.");
-        }
+        //        switch (sortChoice) {
+        //            case 1:
+        //                students.sort(Comparator.comparing(Student::getId));
+        //                break;
+        //            case 2:
+        //                students.sort(Comparator.comparing(Student::getName));
+        //                break;
+        //            case 3:
+        //                students.sort(Comparator.comparing(Student::getAge));
+        //                break;
+        //            case 4:
+        //                students.sort(Comparator.comparing(Student::getGpa));
+        //                break;
+        //            default:
+        //                System.out.println("Invalid choice.");
+        //        }
 
-        System.out.println("Students sorted in ascending order.");
+        //        System.out.println("Students sorted in ascending order.");
     }
 
     private static void sortStudentsDescending(ArrayList<Student> students) {
@@ -71,26 +72,26 @@ public class StudentManagement {
         System.out.println("4. GPA");
         System.out.print("Enter your choice: ");
 
-        int sortChoice = scanner.nextInt();
-
-        switch (sortChoice) {
-            case 1:
-                students.sort(Comparator.comparing(Student::getId).reversed());
-                break;
-            case 2:
-                students.sort(Comparator.comparing(Student::getName).reversed());
-                break;
-            case 3:
-                students.sort(Comparator.comparing(Student::getAge).reversed());
-                break;
-            case 4:
-                students.sort(Comparator.comparing(Student::getGpa).reversed());
-                break;
-            default:
-                System.out.println("Invalid choice.");
-        }
-
-        System.out.println("Students sorted in descending order.");
+        //        int sortChoice = scanner.nextInt();
+        //
+        //        switch (sortChoice) {
+        //            case 1:
+        //                students.sort(Comparator.comparing(Student::getId).reversed());
+        //                break;
+        //            case 2:
+        //                students.sort(Comparator.comparing(Student::getName).reversed());
+        //                break;
+        //            case 3:
+        //                students.sort(Comparator.comparing(Student::getAge).reversed());
+        //                break;
+        //            case 4:
+        //                students.sort(Comparator.comparing(Student::getGpa).reversed());
+        //                break;
+        //            default:
+        //                System.out.println("Invalid choice.");
+        //        }
+        //
+        //        System.out.println("Students sorted in descending order.");
     }
 
     public static void searchStudent() {
@@ -117,22 +118,22 @@ public class StudentManagement {
         // Continue coding here:
     }
 
-    private static List<Student> studentList = new ArrayList<>();
+    //Declaring a list as final means that you cannot change the reference to the list, i.e., we cannot make studentList point to a different list.
+    // However, we can still modify the contents of the list, such as adding, removing, or sorting the elements.
+    private static final List<Student> studentList = new ArrayList<>();
 
     public static void showAllStudent() {
-        System.out.println("---------------------------------------------------- SHOW ALL STUDENTS ---------------------------------------");
-        System.out.println("| No. | Name   | ID           | Date of birth      | Email                       | Phone        |GPA         |");
-        System.out.println("+-----+--------+--------------+--------------------+-----------------------------+--------------+------------+");
+        System.out.println("------------------------------------------------------------------- SHOW ALL STUDENTS -------------------------------------------------------------------+");
+        System.out.println("| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  MAD  |  OSG  |  NWC  |  PRO  |  SSG  |  GPA  |");
+        System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+-------+-------+-------+-------+-------+-------+");
 
         for (int i = 0; i < studentList.size(); i++) {
             Student student = studentList.get(i);
-            double gpa = student.getAverageScore(); // Calculate GPA
-            System.out.printf("| %-4d| %-7s| %-13s| %-19s| %-14s| %-13s| %-11.2f|%n",
-                    i + 1, student.getId(), student.getName(), student.getDateOfBirth(), student.getEmail(),
-                    student.getPhoneNumber(), student.getGPA());
+            System.out.printf("| %-4d", i + 1);
+            student.showAllInfo();
         }
 
-        System.out.println("+-----+--------+--------------+--------------------+-----------------------------+--------------+------------+");
+        System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+------+------+------+------+------+------+");
     }
 
     public static void addNewStudent() {
@@ -141,7 +142,7 @@ public class StudentManagement {
         // Using List in this case because it is straightforward to add, delete, and
         // search student
         // full name: not empty, digits, and special characters
-        String name = CheckIValidInput.checkValidName("student");
+        String fullName = CheckIValidInput.checkValidName("student");
 
         // ID: not the same ID as the entered ID, not empty, 8 characters: The first two
         // characters are words (CE); the others are digits.
@@ -161,17 +162,18 @@ public class StudentManagement {
         // extension “@fpt.edu.vn”
         // else (>18) the email must use the extension “@gmail.com”
         // * Note 2: the string id in the email must be lowercase.
-        String[] email = CheckIValidInput.checkEmail(studentID, "student", name);
+        String email = CheckIValidInput.checkEmail(studentID, "student", fullName);
 
         // Phone number: not empty, only digits and must have 10 digits, must have 0 at
         // first.
         String phoneNumber = CheckIValidInput.checkPhoneNumber("student");
 
         // GPA: no empty, >=0 and <=10, only numbers.
-// Enter Score of MAD, OSG, NWC, PRO, SSG
-        Double gpa = CheckIValidInput.checkValidScore();
-        Student newStudent = new Student(studentID,name,dateOfBirth,email,phoneNumber, gpa);
-        studentList.add(newStudent); 
-
+        // Enter Score of MAD, OSG, NWC, PRO, SSG
+        List<Double> scores = CheckIValidInput.checkValidScore();
+        Student newStudent = new Student(fullName, studentID, dateOfBirth, email, phoneNumber, 0.0, scores); // set GPA as 0.0 initially
+        double gpa = newStudent.calculateGPA(scores); // calculate GPA using the method in Student class
+        newStudent.setGPA(gpa); // set the calculated GPA
+        studentList.add(newStudent);
     }
 }

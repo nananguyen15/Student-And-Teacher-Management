@@ -16,8 +16,8 @@ public class CheckIValidInput{
                 String[] name = str.split(" ");
                 //name[i].substring(0, 1).toUpperCase() converts the first character of each word to uppercase
                 //name[i].substring(1).toLowerCase() converts the rest of the word to lowercase
-                for (int i = 0; i< name.length; i++){
-                    name[i] = name[i].substring(0,1).toUpperCase() + name[i].substring(1).toLowerCase();
+                for (int i = 0; i < name.length; i++) {
+                    name[i] = name[i].substring(0, 1).toUpperCase() + name[i].substring(1).toLowerCase();
                 }
                 //C2:
                 //for (int i = 0; i < name.length; i++){
@@ -71,8 +71,9 @@ public class CheckIValidInput{
     }
 
     //Function to check valid email
-    public static void checkEmail(String id, String personType, String name) {
+    public static String checkEmail(String id, String personType, String name) {
         Scanner sc = new Scanner(System.in);
+        String email = "";
         do {
             try {
                 System.out.print("Enter " + personType + "'s the email: ");
@@ -106,7 +107,7 @@ public class CheckIValidInput{
                     expectedEmail1 = nameEmail[nameEmail.length - 1].toLowerCase() + lowercaseAcronym + "." + ID + "@fpt.edu.vn";
                     expectedEmail2 = nameEmail[nameEmail.length - 1].toLowerCase() + lowercaseAcronym + "." + ID + "@gmail.com";
                 }
-                String email = sc.nextLine().trim();
+                email = sc.nextLine().trim();
 
                 //Using regex to get the numeric part of the ID
                 //The regex [^0-9] means any character that is not a number will be replaced by an empty string
@@ -183,16 +184,18 @@ public class CheckIValidInput{
             }
         }
         while (true);
+        return email;
     }
 
     //Function to check valid phone number
-    public static void checkPhoneNumber(String personType) {
+    public static String checkPhoneNumber(String personType) {
         Scanner sc = new Scanner(System.in);
+        String phoneNumber = "";
         do {
             try {
                 System.out.print("Enter " + personType + "'s phone number: ");
                 //Using parseInt to convert the string to an integer
-                String phoneNumber = sc.nextLine().trim();
+                phoneNumber = sc.nextLine().trim();
                 //Using regex to check if the phone number has 10 numbers and starts with 0
                 if (!(Pattern.matches("^0\\d{9}", phoneNumber)))
                     throw new IllegalArgumentException("Invalid input. The phone number must have 10 numbers and start with 0.\nPlease enter again!");
@@ -202,15 +205,17 @@ public class CheckIValidInput{
             }
         }
         while (true);
+        return phoneNumber;
     }
 
     //Function to check valid date of birth
-    public static void checkDateOfBirth(String personType) {
+    public static String checkDateOfBirth(String personType) {
         Scanner sc = new Scanner(System.in);
+        String dateOfBirth = "";
         do {
             try {
                 System.out.print("Enter date of birth of " + personType + ": ");
-                String dateOfBirth = sc.nextLine();
+                dateOfBirth = sc.nextLine();
 
                 //Using regex to check if the date of birth has the format: dd/mm/yyyy
                 if (!(Pattern.matches("\\d{2}/\\d{2}/\\d{4}", dateOfBirth)))
@@ -260,15 +265,17 @@ public class CheckIValidInput{
             }
         }
         while (true);
+        return dateOfBirth;
     }
 
     //Function to check valid salary
-    public static void checkValidSalary() {
+    public static double checkValidSalary() {
         Scanner sc = new Scanner(System.in);
+        double salary = 0;
         do {
             try {
                 System.out.print("Enter salary of teacher: ");
-                int salary = Integer.parseInt(sc.nextLine());
+                salary = Double.parseDouble(sc.nextLine());
                 //                if (!sc.hasNextInt())
                 //                    throw new IllegalArgumentException("Invalid input. The salary must be a number.\nPlease enter again!");
                 if (salary < 20_000_000) {
@@ -280,49 +287,46 @@ public class CheckIValidInput{
             }
         }
         while (true);
+        return salary;
     }
 
     //Function to check valid score
-    public static void checkValidScore() {
+    public static List<Double> checkValidScore() {
         Scanner sc = new Scanner(System.in);
-
-        //Using a map to store the scores of the student
-        //Reason to use map: The scores of the student are associated with the subjects
-        //If use list or Set it will be difficult to know which score is associated with which subject
-        Map<String, Double> scores = new HashMap<>();
 
         //The array of subjects
         String[] subjects = {"MAD", "OSG", "NWC", "PRO", "SSG"};
-        do {
-            try {
-                System.out.println("Enter score of student: ");
+        List<Double> scores = new ArrayList<>();
 
-                //Using for each loop to loop through the array of subjects
-                for (String subject : subjects) {
-                    System.out.print("- " + subject + ": ");
+        for (String subject : subjects) {
+            while (true) {
+                try {
+                    System.out.print("Enter score for " + subject + ": ");
                     double score = Double.parseDouble(sc.nextLine());
-                    //If the score is less than 0 or greater than 10, it will throw an exception
-                    if (score < 0 || score > 10)
-                        throw new IllegalArgumentException("Invalid input. The score must be >=0 and <=10.\nPlease enter again!");
-                    scores.put(subject, score);
+                    if (score < 0 || score > 10) {
+                        throw new IllegalArgumentException("Invalid score. The score must be >=0 and <=10. Please enter again!");
+                    } else {
+                        scores.add(score);
+                        break; // break the loop if the score is valid
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. The score must be a double number. Please enter again!");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
                 }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. The score must be a double number.\nPlease enter again!");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
             }
         }
-        while (true);
+        return scores;
     }
 
     //Function to check valid subject
-    public static void checkSubject() {
+    public static String checkSubject() {
         Scanner sc = new Scanner(System.in);
+        String subject = "";
         do {
             try {
                 System.out.print("Enter subject teaching for teacher: ");
-                String subject = sc.nextLine().trim().toUpperCase();
+                subject = sc.nextLine().trim().toUpperCase();
                 //If the subject contains any special characters or numbers or be empty, it will throw an exception
                 if (!Pattern.matches("[a-zA-Z]+", subject))
                     throw new IllegalArgumentException("Invalid input. The subject must have only words.\nPlease enter again!");
@@ -336,5 +340,6 @@ public class CheckIValidInput{
             }
         }
         while (true);
+        return subject;
     }
 }

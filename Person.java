@@ -3,9 +3,9 @@ public abstract class Person{
     private String id;
     private String dateOfBirth;
     private String email;
-    private int phoneNumber;
+    private String phoneNumber;
 
-    public Person(String name, String id, String dateOfBirth, String email, int phoneNumber) {
+    public Person(String name, String id, String dateOfBirth, String email, String phoneNumber) {
         this.name = name;
         this.id = id;
         this.dateOfBirth = dateOfBirth;
@@ -45,16 +45,16 @@ public abstract class Person{
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     public void showAllInfo() {
-
+        System.out.printf("| %-24s | %-7s | %-16s | %-25s | %-11s |", name, id, dateOfBirth, email, phoneNumber);
     }
 
 }

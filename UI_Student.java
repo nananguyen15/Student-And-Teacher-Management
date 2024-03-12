@@ -29,7 +29,7 @@ public class UI_Student{
                     StudentManagement.searchStudent();
                     break;
                 case 5:
-                    StudentManagement.sortStudent();
+//                    StudentManagement.sortStudent();
                     break;
                 case 6:
                     Menu.exit();

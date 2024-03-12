@@ -2,7 +2,7 @@ public class Teacher extends Person{
     private String subject;
     private double salary;
 
-    public Teacher(String name, String id, String dateOfBirth, String[] email, String phoneNumber, double salary, String subject) {
+    public Teacher(String name, String id, String dateOfBirth, String email, String phoneNumber, double salary, String subject) {
         super(name, id, dateOfBirth, email, phoneNumber);
         this.salary = salary;
         this.subject = subject;
@@ -25,13 +25,9 @@ public class Teacher extends Person{
         this.salary = salary;
     }
 
-    public void showAllInfoTeacher() {
-        System.out.println("Name: " + getName());
-        System.out.println("ID: " + getId());
-        System.out.println("Date of Birth: " + getDateOfBirth());
-        System.out.println("Email: " + getEmail());
-        System.out.println("Phone Number: " + getPhoneNumber());
-        System.out.println("Subject: " + getSubject());
-        System.out.println("Salary: " + getSalary());
+    @Override
+    public void showAllInfo() {
+        super.showAllInfo();
+        System.out.printf(" %-11.2f| %-11s|\n", getSalary(),getSubject());
     }
 }

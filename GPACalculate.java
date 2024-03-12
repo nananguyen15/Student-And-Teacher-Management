@@ -1,4 +1,7 @@
+import java.util.List;
+
 public interface GPACalculate{
+    double calculateGPA(List<Double> scores);
     default double ConvertGPA(double score) {
         if (score >= 9)
             return 4.0;
@@ -11,46 +14,7 @@ public interface GPACalculate{
         else
             return 0;
     }
-
-    double calculateGPA(double score);
 }
 
-class MAD implements GPACalculate{
-    @Override
-    public double calculateGPA(double score) {
-        return ConvertGPA(score);
-    }
-}
-
-class OSG implements GPACalculate{
-
-    @Override
-    public double calculateGPA(double score) {
-        return ConvertGPA(score);
-    }
-}
-
-class NWC implements GPACalculate{
-
-    @Override
-    public double calculateGPA(double score) {
-        return ConvertGPA(score);
-    }
-}
-
-class PRO implements GPACalculate{
-
-    @Override
-    public double calculateGPA(double score) {
-        return ConvertGPA(score);
-    }
-}
-
-class SSG implements GPACalculate{
-    @Override
-    public double calculateGPA(double score) {
-        return ConvertGPA(score);
-    }
-}
 
 
