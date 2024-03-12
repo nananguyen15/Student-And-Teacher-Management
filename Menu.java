@@ -31,6 +31,17 @@ public class Menu{
         System.out.println("\t*-----------------------------------------------------------*");
         System.out.print("Enter your choice: ");
     }
+    public static void menuSearchTeacherMangament() {
+        System.out.println("---- SEARCH STUDENT ----");
+        System.out.println("1. Search by name.");
+        System.out.println("2. Search by ID.");
+        System.out.println("3. Search by Age.");
+        System.out.println("4. Search by phone number.");
+        System.out.println("5. Search by Email.");
+        System.out.println("6. Search by main menu Salary.");
+        System.out.println("7. Search by main menu Subject.");
+        System.out.print("Enter your choice: ");
+    }
 
     public static void exit() {
         System.out.println("THANK YOU FOR USING OUR APPLICATION.\n" + "SEE YOU AGAIN!");
