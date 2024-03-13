@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class StudentManagement{
+public class StudentManagement {
     public static void sortStudent(ArrayList<Student> students) {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -31,8 +31,7 @@ public class StudentManagement{
                 default:
                     System.out.println("Invalid choice.");
             }
-        }
-        while (choice != 3);
+        } while (choice != 3);
     }
 
     private static void sortStudentsAscending(ArrayList<Student> students) {
@@ -43,26 +42,26 @@ public class StudentManagement{
         System.out.println("4. GPA");
         System.out.print("Enter your choice: ");
 
-        //        int sortChoice = sc.nextInt();
+        // int sortChoice = sc.nextInt();
 
-        //        switch (sortChoice) {
-        //            case 1:
-        //                students.sort(Comparator.comparing(Student::getId));
-        //                break;
-        //            case 2:
-        //                students.sort(Comparator.comparing(Student::getName));
-        //                break;
-        //            case 3:
-        //                students.sort(Comparator.comparing(Student::getAge));
-        //                break;
-        //            case 4:
-        //                students.sort(Comparator.comparing(Student::getGpa));
-        //                break;
-        //            default:
-        //                System.out.println("Invalid choice.");
-        //        }
+        // switch (sortChoice) {
+        // case 1:
+        // students.sort(Comparator.comparing(Student::getId));
+        // break;
+        // case 2:
+        // students.sort(Comparator.comparing(Student::getName));
+        // break;
+        // case 3:
+        // students.sort(Comparator.comparing(Student::getAge));
+        // break;
+        // case 4:
+        // students.sort(Comparator.comparing(Student::getGpa));
+        // break;
+        // default:
+        // System.out.println("Invalid choice.");
+        // }
 
-        //        System.out.println("Students sorted in ascending order.");
+        // System.out.println("Students sorted in ascending order.");
     }
 
     private static void sortStudentsDescending(ArrayList<Student> students) {
@@ -73,138 +72,144 @@ public class StudentManagement{
         System.out.println("4. GPA");
         System.out.print("Enter your choice: ");
 
-        //        int sortChoice = scanner.nextInt();
+        // int sortChoice = scanner.nextInt();
         //
-        //        switch (sortChoice) {
-        //            case 1:
-        //                students.sort(Comparator.comparing(Student::getId).reversed());
-        //                break;
-        //            case 2:
-        //                students.sort(Comparator.comparing(Student::getName).reversed());
-        //                break;
-        //            case 3:
-        //                students.sort(Comparator.comparing(Student::getAge).reversed());
-        //                break;
-        //            case 4:
-        //                students.sort(Comparator.comparing(Student::getGpa).reversed());
-        //                break;
-        //            default:
-        //                System.out.println("Invalid choice.");
-        //        }
+        // switch (sortChoice) {
+        // case 1:
+        // students.sort(Comparator.comparing(Student::getId).reversed());
+        // break;
+        // case 2:
+        // students.sort(Comparator.comparing(Student::getName).reversed());
+        // break;
+        // case 3:
+        // students.sort(Comparator.comparing(Student::getAge).reversed());
+        // break;
+        // case 4:
+        // students.sort(Comparator.comparing(Student::getGpa).reversed());
+        // break;
+        // default:
+        // System.out.println("Invalid choice.");
+        // }
         //
-        //        System.out.println("Students sorted in descending order.");
+        // System.out.println("Students sorted in descending order.");
     }
 
     public static void searchStudent() {
         boolean continueSearch;
-do {
-    Scanner sc = new Scanner(System.in);
-
-    int choice;
-    do {
-        System.out.println("---- SEARCH STUDENT ----");
-        System.out.println("1. Search by name.");
-        System.out.println("2. Search by ID.");
-        System.out.println("3. Search by age.");
-        System.out.println("4. Search by phone number.");
-        System.out.println("5. Search by GPA.");
-        System.out.println("6. Back to main menu.");
-        System.out.print("Enter your choice: ");
-
-        try {
-            choice = Integer.parseInt(sc.nextLine().trim());
-            if (choice < 1 || choice > 6) {
-                System.err.println("Invalid choice. Please enter a number between 1 and 6.\n");
-            }
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid input. Please enter a valid number.\n");
-            choice = -1;
-        }
-    } while (choice < 1 || choice > 6);
-
-    if (choice == 6) {
-        continueSearch = false;
-        break; // Break out of the main search loop to return to the main menu
-    } else {
-        continueSearch = true;
-    }if (continueSearch) {
-         System.out.println("Enter search value:");
-        String searchValue = sc.nextLine().trim();
-
-        List<Student> foundStudents = new ArrayList<>();
-
-        for (Student student : studentList) {
-            switch (choice) {
-                case 1:
-                    if (student.getName().equalsIgnoreCase(searchValue)) {
-                        foundStudents.add(student);
-                    }
-                    break;
-                case 2:
-                    if (student.getId().equals(searchValue)) {
-                        foundStudents.add(student);
-                    }
-                    break;
-                case 3:
-                    // Assuming you have a method to get student age
-                    String[] token;
-                         String line = student.getDateOfBirth().trim();
-                         token = line.split("/");
-                         String Year = token[2];
-                         int birthYear = Integer.parseInt(Year);
-                        int age =2024 - birthYear;
-                        if (age == Integer.parseInt(searchValue)) {
-                              foundStudents.add(student);}
-                        
-                        break;
-                case 4:
-                    if (student.getPhoneNumber().equalsIgnoreCase(searchValue)) {
-                        foundStudents.add(student);
-                    }
-                    break;
-                case 5:
-                    if (student.getGPA() == Double.parseDouble(searchValue)) {
-                        foundStudents.add(student);
-                    }
-                    break;
-                default:
-                    System.out.println("Invalid choice.");
-            }
-        }
-
-        if (foundStudents.isEmpty()) {
-            System.out.println("Student not found.");
-        } else {
-
-            System.out.println(
-                    "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
-            System.out.println(
-                    "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
-            System.out.println(
-                    "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
-            for (int i = 0; i < foundStudents.size(); i++) {
-                Student t = foundStudents.get(i);
-                System.out.printf("| %-4d|", i + 1);
-                t.showAllInfo();
-            }
-            System.out.println(
-                    "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
-        }
-
         do {
-            try {
-                System.out.print("Do you want to continue searching? (true/false): ");
-                continueSearch = sc.nextBoolean();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
-                sc.next();
-                sc.nextLine();
-                continueSearch = false;
-            }
-        } while (!continueSearch);
-    }} while (continueSearch);
+            Scanner sc = new Scanner(System.in);
 
-        
+            int choice;
+            do {
+                System.out.println("---- SEARCH STUDENT ----");
+                System.out.println("1. Search by name.");
+                System.out.println("2. Search by ID.");
+                System.out.println("3. Search by age.");
+                System.out.println("4. Search by phone number.");
+                System.out.println("5. Search by GPA.");
+                System.out.println("6. Back to main menu.");
+                System.out.print("Enter your choice: ");
+
+                try {
+                    choice = Integer.parseInt(sc.nextLine().trim());
+                    if (choice < 1 || choice > 6) {
+                        System.err.println("Invalid choice. Please enter a number between 1 and 6.\n");
+                    }
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid input. Please enter a valid number.\n");
+                    choice = -1;
+                }
+            } while (choice < 1 || choice > 6);
+
+            if (choice == 6) {
+                continueSearch = false;
+                break; // Break out of the main search loop to return to the main menu
+            } else {
+                continueSearch = true;
+            
+            
+                System.out.println("Enter search value:");
+                String searchValue = sc.nextLine().trim();
+
+                List<Student> foundStudents = new ArrayList<>();
+
+                for (Student student : studentList) {
+                    switch (choice) {
+                        case 1:
+                            if (student.getName().equalsIgnoreCase(searchValue)) {
+                                foundStudents.add(student);
+                            }
+                            break;
+                        case 2:
+                            if (student.getId().equals(searchValue)) {
+                                foundStudents.add(student);
+                            }
+                            break;
+                        case 3:
+                            // Assuming you have a method to get student age
+                            String[] token;
+                            String line = student.getDateOfBirth().trim();
+                            token = line.split("/");
+                            String Year = token[2];
+                            int birthYear = Integer.parseInt(Year);
+                            int age = 2024 - birthYear;
+                            if (age == Integer.parseInt(searchValue)) {
+                                foundStudents.add(student);
+                            }
+
+                            break;
+                        case 4:
+                            if (student.getPhoneNumber().equalsIgnoreCase(searchValue)) {
+                                foundStudents.add(student);
+                            }
+                            break;
+                        case 5:
+                            if (student.getGPA() == Double.parseDouble(searchValue)) {
+                                foundStudents.add(student);
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid choice.");
+                    }
+                }
+
+                if (foundStudents.isEmpty()) {
+                    System.out.println("Student not found.");
+                } else {
+
+                    System.out.println(
+                            "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                    System.out.println(
+                            "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
+                    System.out.println(
+                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+                    for (int i = 0; i < foundStudents.size(); i++) {
+                        Student t = foundStudents.get(i);
+                        System.out.printf("| %-4d|", i + 1);
+                        t.showAllInfo();
+                    }
+                    System.out.println(
+                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
+
+                    do {
+                        try {
+                            System.out.print("Do you want to continue searching? (true/false): ");
+                            continueSearch = sc.nextBoolean();
+                            if (!continueSearch) {
+                                break;
+                            }
+                            sc.nextLine();
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
+
+                            sc.nextLine();
+                            continueSearch = false;
+                        }
+                    } while (!continueSearch);
+                   
+                }
+            }
+        } while (continueSearch);
 
     }
 
@@ -247,14 +252,19 @@ do {
         }
     }
 
-    //Declaring a list as final means that you cannot change the reference to the list, i.e., we cannot make studentList point to a different list.
-    // However, we can still modify the contents of the list, such as adding, removing, or sorting the elements.
+    // Declaring a list as final means that you cannot change the reference to the
+    // list, i.e., we cannot make studentList point to a different list.
+    // However, we can still modify the contents of the list, such as adding,
+    // removing, or sorting the elements.
     private static final List<Student> studentList = new ArrayList<>();
 
     public static void showAllStudent() {
-        System.out.println("------------------------------------------------------------------- SHOW ALL STUDENTS -------------------------------------------------------------------+");
-        System.out.println("| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  MAD  |  OSG  |  NWC  |  PRO  |  SSG  |  GPA  |");
-        System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+-------+-------+-------+-------+-------+-------+");
+        System.out.println(
+                "------------------------------------------------------------------- SHOW ALL STUDENTS -------------------------------------------------------------------+");
+        System.out.println(
+                "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  MAD  |  OSG  |  NWC  |  PRO  |  SSG  |  GPA  |");
+        System.out.println(
+                "+-----+--------------------------+----------+------------------+---------------------------+-------------+-------+-------+-------+-------+-------+-------+");
 
         for (int i = 0; i < studentList.size(); i++) {
             Student student = studentList.get(i);
@@ -262,7 +272,8 @@ do {
             student.showAllInfo();
         }
 
-        System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+------+------+------+------+------+------+");
+        System.out.println(
+                "+-----+--------------------------+----------+------------------+---------------------------+-------------+------+------+------+------+------+------+");
     }
 
     public static void addNewStudent() {
@@ -300,7 +311,9 @@ do {
         // GPA: no empty, >=0 and <=10, only numbers.
         // Enter Score of MAD, OSG, NWC, PRO, SSG
         List<Double> scores = CheckIValidInput.checkValidScore();
-        Student newStudent = new Student(fullName, studentID, dateOfBirth, email, phoneNumber, 0.0, scores); // set GPA as 0.0 initially
+        Student newStudent = new Student(fullName, studentID, dateOfBirth, email, phoneNumber, 0.0, scores); // set GPA
+                                                                                                             // as 0.0
+                                                                                                             // initially
         double gpa = newStudent.calculateGPA(scores); // calculate GPA using the method in Student class
         newStudent.setGPA(gpa); // set the calculated GPA
         studentList.add(newStudent);
