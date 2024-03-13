@@ -19,7 +19,7 @@ public class TeacherManagement {
         boolean continueSearch;
         do {
             Scanner sc = new Scanner(System.in);
-           
+
             int choice;
             do {
                 Menu.menuSearchTeacherMangament();
@@ -33,119 +33,153 @@ public class TeacherManagement {
                     choice = -1;
                 }
             } while (choice < 1 || choice > 8);
-            
+
             if (choice == 8) {
                 continueSearch = false;
                 break; // Break out of the main search loop to return to the main menu
             } else {
                 continueSearch = true;
-            }if (continueSearch) {
-            System.out.println("Enter search value:");
-            String searchValue = sc.nextLine().trim();
+            
+                System.out.println("Enter search value:");
+                String searchValue = sc.nextLine().trim();
 
-            List<Teacher> foundTeachers = new ArrayList<>();
+                List<Teacher> foundTeachers = new ArrayList<>();
 
-            for (Teacher teacher : teacherList) {
-                switch (choice) {
-                    case 1:
+                for (Teacher teacher : teacherList) {
+                    switch (choice) {
+                        case 1:
 
-                        if (teacher.getName().equalsIgnoreCase(searchValue)) {
-                            foundTeachers.add(teacher);
+                            if (teacher.getName().equalsIgnoreCase(searchValue)) {
+                                foundTeachers.add(teacher);
 
-                        }
-                        break;
-                    case 2:
-                        if (teacher.getId().equals(searchValue)) {
-                            foundTeachers.add(teacher);
+                            }
+                            break;
+                        case 2:
+                            if (teacher.getId().equals(searchValue)) {
+                                foundTeachers.add(teacher);
 
-                        }
-                        break;
-                    case 3:
-                        //if (teacher.getDateOfBirth().equals(searchValue)) {
-                         //   foundTeachers.add(teacher);}
-                         String[] token;
-                         String line = teacher.getDateOfBirth().trim();
-                         token = line.split("/");
-                         String Year = token[2];
-                         int birthYear = Integer.parseInt(Year);
-                        int age =2024 - birthYear;
-                        if (age == Integer.parseInt(searchValue)) {
-                              foundTeachers.add(teacher);}
+                            }
+                            break;
+                        case 3:
+                            // if (teacher.getDateOfBirth().equals(searchValue)) {
+                            // foundTeachers.add(teacher);}
+                            String[] token;
+                            String line = teacher.getDateOfBirth().trim();
+                            token = line.split("/");
+                            String Year = token[2];
+                            int birthYear = Integer.parseInt(Year);
+                            int age = 2024 - birthYear;
+                            if (age == Integer.parseInt(searchValue)) {
+                                foundTeachers.add(teacher);
+                            }
+
+                            break;
+                        case 4:
+
+                            if (teacher.getPhoneNumber().equalsIgnoreCase(searchValue)) {
+                                foundTeachers.add(teacher);
+
+                            }
+                            break;
+                        case 5:
+                            if (teacher.getEmail().equalsIgnoreCase(searchValue)) {
+                                foundTeachers.add(teacher);
+
+                            }
+                            break;
+                        case 6:
+                            if (teacher.getSalary() == Long.parseLong(searchValue)) {
+                                foundTeachers.add(teacher);
+
+                            }
+                            break;
+                        case 7:
+                            if (teacher.getSubject().equalsIgnoreCase(searchValue)) {
+                                foundTeachers.add(teacher);
+
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalid choice.");
+
+                    }
+                }
+
+                if (foundTeachers.isEmpty()) {
+                    System.out.println("Teacher not found.");
+                } else {
+
+                    System.out.println(
+                            "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                    System.out.println(
+                            "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
+                    System.out.println(
+                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+                    for (int i = 0; i < foundTeachers.size(); i++) {
+                        Teacher t = foundTeachers.get(i);
+                        System.out.printf("| %-4d|", i + 1);
+                        t.showAllInfo();
+                    }
+                    System.out.println(
+                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
+                }
+                do {
+                    try {
+                        System.out.print("Do you want to continue searching? (true/false): ");
+                        continueSearch = sc.nextBoolean();
+                        if (!continueSearch) {
+                            break;
+                        } sc.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
                         
-                        break;
-                    case 4:
-
-                        if (teacher.getPhoneNumber().equalsIgnoreCase(searchValue)) {
-                            foundTeachers.add(teacher);
-
-                        }
-                        break;
-                    case 5:
-                        if (teacher.getEmail().equalsIgnoreCase(searchValue)) {
-                            foundTeachers.add(teacher);
-
-                        }
-                        break;
-                    case 6:
-                        if (teacher.getSalary() == Long.parseLong(searchValue)) {
-                            foundTeachers.add(teacher);
-
-                        }
-                        break;
-                    case 7:
-                        if (teacher.getSubject().equalsIgnoreCase(searchValue)) {
-                            foundTeachers.add(teacher);
-
-                        }
-                        break;
-                    default:
-                        System.out.println("Invalid choice.");
-
-                }
+                        sc.nextLine();
+                        continueSearch = false;
+                    }
+                } while (!continueSearch);
             }
-
-            if (foundTeachers.isEmpty()) {
-                System.out.println("Teacher not found.");
-            } else {
-
-                System.out.println(
-                        "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
-                System.out.println(
-                        "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
-                System.out.println(
-                        "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
-                for (int i = 0; i < foundTeachers.size(); i++) {
-                    Teacher t = foundTeachers.get(i);
-                    System.out.printf("| %-4d|", i + 1);
-                    t.showAllInfo();
-                }
-                System.out.println(
-                        "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
-            }
-            do {
-                try {
-                    System.out.print("Do you want to continue searching? (true/false): ");
-                    continueSearch = sc.nextBoolean();
-                } catch (InputMismatchException e) {
-                    System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
-                    sc.next();
-                    
-                    sc.nextLine(); 
-                    continueSearch = false;
-                }
-            } while (!continueSearch);
-        }} while (continueSearch);
+        } while (continueSearch);
 
     }
 
     public static void deleteTeacher() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("---- DELETE TEACHER ----");
         System.out.println("1. Delete a teacher.");
         System.out.println("2. Delete all teachers.");
         System.out.println("3. Back to main menu.");
         System.out.print("Enter your choice: ");
 
-        // Continue coding here:
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter the ID of the student you want to delete: ");
+                String studentID = scanner.next().toUpperCase();
+                boolean found = false;
+                for (int i = 0; i < teacherList.size(); i++) {
+                    Teacher teacher = teacherList.get(i);
+                    if (teacher.getId().equals(studentID)) {
+                        teacherList.remove(i);
+                        found = true;
+                        System.out.println("Student with ID " + teacher.getId() + " has been deleted.");
+                        break; // Exit the loop after deleting the student
+                    }else{
+                        System.out.println("ID does not exist");
+                    }
+                }
+                break;
+            case 2:
+                teacherList.clear();
+                System.out.println("All students have been deleted.");
+                break;
+            case 3:
+                // Return to the main menu
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+
     }
 
     private static final List<Teacher> teacherList = new ArrayList<>();
