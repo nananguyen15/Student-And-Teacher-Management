@@ -32,9 +32,14 @@ public class TeacherManagement {
                     System.err.println("Invalid input. Please enter a valid number.\n");
                     choice = -1;
                 }
-            } while (choice < 1 || choice > 7);
+            } while (choice < 1 || choice > 8);
             
-
+            if (choice == 8) {
+                continueSearch = false;
+                break; // Break out of the main search loop to return to the main menu
+            } else {
+                continueSearch = true;
+            }if (continueSearch) {
             System.out.println("Enter search value:");
             String searchValue = sc.nextLine().trim();
 
@@ -129,7 +134,7 @@ public class TeacherManagement {
                     continueSearch = false;
                 }
             } while (!continueSearch);
-        } while (continueSearch);
+        }} while (continueSearch);
 
     }
 
