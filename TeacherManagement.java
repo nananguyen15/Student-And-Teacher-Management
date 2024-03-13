@@ -139,13 +139,43 @@ public class TeacherManagement {
     }
 
     public static void deleteTeacher() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("---- DELETE TEACHER ----");
         System.out.println("1. Delete a teacher.");
         System.out.println("2. Delete all teachers.");
         System.out.println("3. Back to main menu.");
         System.out.print("Enter your choice: ");
 
-        // Continue coding here:
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter the ID of the student you want to delete: ");
+                String studentID = scanner.next().toUpperCase();
+                boolean found = false;
+                for (int i = 0; i < teacherList.size(); i++) {
+                    Teacher teacher = teacherList.get(i);
+                    if (teacher.getId().equals(studentID)) {
+                        teacherList.remove(i);
+                        found = true;
+                        System.out.println("Student with ID " + teacher.getId() + " has been deleted.");
+                        break; // Exit the loop after deleting the student
+                    }else{
+                        System.out.println("ID does not exist");
+                    }
+                }
+                break;
+            case 2:
+                teacherList.clear();
+                System.out.println("All students have been deleted.");
+                break;
+            case 3:
+                // Return to the main menu
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+
     }
 
     private static final List<Teacher> teacherList = new ArrayList<>();

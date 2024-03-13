@@ -209,13 +209,42 @@ do {
     }
 
     public static void deleteStudent() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("---- DELETE STUDENT ----");
         System.out.println("1. Delete a student.");
         System.out.println("2. Delete all students.");
         System.out.println("3. Back to main menu.");
         System.out.print("Enter your choice: ");
 
-        // Continue coding here:
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter the ID of the student you want to delete: ");
+                String studentID = scanner.next().toUpperCase();
+                boolean found = false;
+                for (int i = 0; i < studentList.size(); i++) {
+                    Student student = studentList.get(i);
+                    if (student.getId().equals(studentID)) {
+                        studentList.remove(i);
+                        found = true;
+                        System.out.println("Student with ID " + student.getId() + " has been deleted.");
+                        break; // Exit the loop after deleting the student
+                    }else{
+                        System.out.println("ID does not exist");
+                    }
+                }
+                break;
+            case 2:
+                studentList.clear();
+                System.out.println("All students have been deleted.");
+                break;
+            case 3:
+                // Return to the main menu
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
     }
 
     //Declaring a list as final means that you cannot change the reference to the list, i.e., we cannot make studentList point to a different list.
