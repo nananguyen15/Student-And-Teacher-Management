@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends Person implements GPACalculate{
@@ -48,6 +47,4 @@ public class Student extends Person implements GPACalculate{
         }
         System.out.printf(" %-5.2f |\n", getGPA());
     }
-
-
 }
