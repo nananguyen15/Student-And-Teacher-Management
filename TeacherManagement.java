@@ -5,16 +5,170 @@ import java.util.Scanner;
 
 public class TeacherManagement {
 
+    // Create the list of teacher
+    private static final List<Teacher> teacherList = new ArrayList<>();
+
+    // Function sortTeacher
     public static void sortTeacher() {
-        System.out.println("---- SORT TEACHER ----");
-        System.out.println("1. Sort ascending.");
-        System.out.println("2. Sort descending.");
-        System.out.println("3. Back to main menu.");
-        System.out.print("Enter your choice: ");
+        Scanner scanner = new Scanner(System.in);
+        // Create menu method
+        Menu menu = new Menu();
+        int choice;
 
-        // Continue coding here:
+        do {
+            // Display menu
+            System.out.println("---- SORT TEACHER ----");
+            System.out.println("1. Sort ascending.");
+            System.out.println("2. Sort descending.");
+            System.out.println("3. Back to main menu.");
+            System.out.print("Enter your choice: ");
 
+            // Input choice
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Call sortTeachesrAscending method
+                    sortTeachersAscending();
+                    break;
+                case 2:
+                    // Call sortTeachersDescending method
+                    sortTeachersDescending();
+                    break;
+                case 3:
+                    // Call mainMenu method
+                    System.out.println("Back to main menu.");
+                    menu.mainMenu();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while (choice != 3); // Loop until user enter a number different from 3
     }
+
+    // Function sortTeachersAscending
+    private static void sortTeachersAscending() {
+        Scanner scanner = new Scanner(System.in);
+        int sortChoice;
+
+        do {
+            // Display menu
+            System.out.println("Sort by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Age");
+            System.out.println("4. Salary.");
+            System.out.print("Enter your choice: ");
+
+            // Input choice
+            sortChoice = scanner.nextInt();
+
+            switch (sortChoice) {
+                case 1:
+                    // Sort by ID method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b1.getId().compareTo(b2.getId()));
+                    // Display teacher's list after sort by ID
+                    displayTeacherList();
+                    break;
+                case 2:
+                    // Sort by name method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b1.getName().compareTo(b2.getName()));
+                    // Display teacher's list after sort by name
+                    displayTeacherList();
+                    break;
+                case 3:
+                    // Sort by age method
+                    teacherList.sort((s1, s2) -> {
+                        int age1 = 2024 - Integer.parseInt(s1.getDateOfBirth().trim().split("/")[2]);
+                        int age2 = 2024 - Integer.parseInt(s2.getDateOfBirth().trim().split("/")[2]);
+                        return Integer.compare(age1, age2);
+                    });
+                    // Display teacher's list after sort by age
+                    displayTeacherList();
+                    break;
+                case 4:
+                    // Sort by salary method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b1.getSalary().compareTo(b2.getSalary()));
+                    // Display teacher's list after sort by salary
+                    displayTeacherList();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while (sortChoice != 4); // Loop until user enter a number different from 4
+    }
+
+    // Function sortTeachersDescending
+    private static void sortTeachersDescending() {
+        Scanner scanner = new Scanner(System.in);
+        int sortChoice;
+
+        do {
+            // Display menu
+            System.out.println("Sort by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Age");
+            System.out.println("4. Salary.");
+            System.out.print("Enter your choice: ");
+
+            // Input choice
+            sortChoice = scanner.nextInt();
+
+            switch (sortChoice) {
+                case 1:
+                    // Sort by ID method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b2.getId().compareTo(b1.getId()));
+                    // Display teacher's list after sort by ID
+                    displayTeacherList();
+                    break;
+                case 2:
+                    // Sort by name method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b2.getName().compareTo(b1.getName()));
+                    // Display teacher's list after sort by name
+                    displayTeacherList();
+                    break;
+                case 3:
+                    // Sort by age method
+                    teacherList.sort((s1, s2) -> {
+                        int age1 = 2024 - Integer.parseInt(s1.getDateOfBirth().trim().split("/")[2]);
+                        int age2 = 2024 - Integer.parseInt(s2.getDateOfBirth().trim().split("/")[2]);
+                        return Integer.compare(age2, age1);
+                    });
+                    // Display teacher's list after sort by age
+                    displayTeacherList();
+                    break;
+                case 4:
+                    // Sort by Salary method
+                    teacherList.sort((Teacher b1, Teacher b2) -> b2.getSalary().compareTo(b1.getSalary()));
+                    // Display teacher's list after sort by salary
+                    displayTeacherList();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (sortChoice != 4); // Loop until user enter a number different from 4
+    }
+
+    // Function displayTeacherList
+    private static void displayTeacherList() {
+        System.out.println(
+                "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+        System.out.println(
+                "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
+        System.out.println(
+                "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+        // Loop to display teacher's list
+        for (int i = 0; i < teacherList.size(); i++) {
+            Teacher teacher = teacherList.get(i);
+            System.out.printf("| %-4d", i + 1);
+            teacher.showAllInfo();
+            System.out.println(
+                    "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\n");
+        }
+    }
+
 
     public static void searchTeacher() {
         boolean continueSearch;
@@ -49,16 +203,13 @@ public class TeacherManagement {
                 for (Teacher teacher : teacherList) {
                     switch (choice) {
                         case 1:
-
                             if (teacher.getName().equalsIgnoreCase(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         case 2:
                             if (teacher.getId().equals(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         case 3:
@@ -73,43 +224,35 @@ public class TeacherManagement {
                             if (age == Integer.parseInt(searchValue)) {
                                 foundTeachers.add(teacher);
                             }
-
                             break;
                         case 4:
-
                             if (teacher.getPhoneNumber().equalsIgnoreCase(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         case 5:
                             if (teacher.getEmail().equalsIgnoreCase(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         case 6:
                             if (teacher.getSalary() == Long.parseLong(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         case 7:
                             if (teacher.getSubject().equalsIgnoreCase(searchValue)) {
                                 foundTeachers.add(teacher);
-
                             }
                             break;
                         default:
                             System.out.println("Invalid choice.");
-
                     }
                 }
 
                 if (foundTeachers.isEmpty()) {
                     System.out.println("Teacher not found.");
                 } else {
-
                     System.out.println(
                             "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
                     System.out.println(
@@ -140,7 +283,6 @@ public class TeacherManagement {
                 } while (!continueSearch);
             }
         } while (continueSearch);
-
     }
 
     public static void deleteTeacher() {
@@ -180,10 +322,7 @@ public class TeacherManagement {
             default:
                 System.out.println("Invalid choice.");
         }
-
     }
-
-    private static final List<Teacher> teacherList = new ArrayList<>();
 
     public static void showAllTeachers() {
         System.out.println(
