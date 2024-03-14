@@ -40,9 +40,9 @@ public class TeacherManagement {
             } else {
                 continueSearch = true;
             
-                System.out.println("Enter search value:");
+                System.out.print("Enter search value: ");
                 String searchValue = sc.nextLine().trim();
-
+            
                 List<Teacher> foundTeachers = new ArrayList<>();
 
                 for (Teacher teacher : teacherList) {

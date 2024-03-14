@@ -43,6 +43,9 @@ public class Menu{
         System.out.println("8. Back to main menu");
         System.out.print("Enter your choice: ");
     }
+
+
+
     public static void menuSearchStudentMangament() {
         System.out.println("---- SEARCH STUDENT ----");
         System.out.println("1. Search by name.");
@@ -54,7 +57,7 @@ public class Menu{
         System.out.print("Enter your choice: ");
     }
 
-
+    
 
     public static void exit() {
         System.out.println("THANK YOU FOR USING OUR APPLICATION.\n" + "SEE YOU AGAIN!");

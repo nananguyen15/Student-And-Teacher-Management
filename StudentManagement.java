@@ -101,15 +101,7 @@ public class StudentManagement {
 
             int choice;
             do {
-                System.out.println("---- SEARCH STUDENT ----");
-                System.out.println("1. Search by name.");
-                System.out.println("2. Search by ID.");
-                System.out.println("3. Search by age.");
-                System.out.println("4. Search by phone number.");
-                System.out.println("5. Search by GPA.");
-                System.out.println("6. Back to main menu.");
-                System.out.print("Enter your choice: ");
-
+                Menu.menuSearchStudentMangament();
                 try {
                     choice = Integer.parseInt(sc.nextLine().trim());
                     if (choice < 1 || choice > 6) {
@@ -126,8 +118,7 @@ public class StudentManagement {
                 break; // Break out of the main search loop to return to the main menu
             } else {
                 continueSearch = true;
-            
-            
+
                 System.out.println("Enter search value:");
                 String searchValue = sc.nextLine().trim();
 
@@ -147,6 +138,9 @@ public class StudentManagement {
                             break;
                         case 3:
                             // Assuming you have a method to get student age
+                            
+                            
+                            
                             String[] token;
                             String line = student.getDateOfBirth().trim();
                             token = line.split("/");
@@ -191,28 +185,28 @@ public class StudentManagement {
                     System.out.println(
                             "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
 
-                    do {
-                        try {
-                            System.out.print("Do you want to continue searching? (true/false): ");
-                            continueSearch = sc.nextBoolean();
-                            if (!continueSearch) {
-                                break;
-                            }
-                            sc.nextLine();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
-
-                            sc.nextLine();
-                            continueSearch = false;
-                        }
-                    } while (!continueSearch);
-                   
                 }
+                do {
+                    try {
+                        System.out.print("Do you want to continue searching? (true/false): ");
+                        continueSearch = sc.nextBoolean();
+                        if (!continueSearch) {
+                            break;
+                        }
+                        sc.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
+
+                        sc.nextLine();
+                        continueSearch = false;
+                    }
+                } while (!continueSearch);
+
             }
         } while (continueSearch);
 
     }
-
+   
     public static void deleteStudent() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("---- DELETE STUDENT ----");
