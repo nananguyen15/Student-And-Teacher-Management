@@ -254,7 +254,7 @@ public class TeacherManagement {
                     System.out.println("Teacher not found.");
                 } else {
                     System.out.println(
-                            "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                            "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------+");
                     System.out.println(
                             "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
                     System.out.println(
@@ -265,7 +265,7 @@ public class TeacherManagement {
                         t.showAllInfo();
                     }
                     System.out.println(
-                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
+                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+"");
                 }
                 do {
                     try {
