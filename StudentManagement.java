@@ -4,94 +4,170 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StudentManagement{
-    public static void sortStudent(ArrayList<Student> students) {
+    //Create the list of student
+    private static final List<Student> studentList = new ArrayList<>();
+
+    //Function sortStudent
+    public static void sortStudent() {
         Scanner scanner = new Scanner(System.in);
+        //Create menu method
+        Menu menu = new Menu();
         int choice;
 
         do {
+            //Display menu
             System.out.println("---- SORT STUDENT ----");
             System.out.println("1. Sort ascending.");
             System.out.println("2. Sort descending.");
             System.out.println("3. Back to main menu.");
             System.out.print("Enter your choice: ");
 
+            //Input choice
             choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    sortStudentsAscending(students);
+                //Call sortStudentAscending method
+                    sortStudentsAscending();
                     break;
                 case 2:
-                    sortStudentsDescending(students);
+                //Call sortStudentDescending method
+                    sortStudentsDescending();
                     break;
                 case 3:
+                //Call mainMenu method
                     System.out.println("Back to main menu.");
+                    menu.mainMenu();
                     break;
                 default:
                     System.out.println("Invalid choice.");
             }
+        } while (choice != 3); //Loop until user enter a number different from 3
+    }
+
+
+    //Function sortStudentAscending
+    private static void sortStudentsAscending() {
+        Scanner scanner = new Scanner(System.in);
+        int sortChoice;
+
+        do {
+            //Display menu
+            System.out.println("Sort by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Age");
+            System.out.println("4. GPA");
+            System.out.print("Enter your choice: ");
+
+            //Input choice
+            sortChoice = scanner.nextInt();
+
+            switch (sortChoice) {
+                case 1:
+                //Sort by ID method
+                    studentList.sort((Student b1, Student b2) -> b1.getId().compareTo(b2.getId()));
+                    //Display student's list after sort by ID
+                    displayStudentList();
+                    break;
+                case 2:
+                //Sort by name method
+                    studentList.sort((Student b1, Student b2) -> b1.getName().compareTo(b2.getName()));
+                    //Dislay student's list after sort by name
+                    displayStudentList();
+                    break;
+                case 3:
+                //Sort by age method
+                    studentList.sort((s1, s2) -> {
+                        int age1 = 2024 - Integer.parseInt(s1.getDateOfBirth().trim().split("/")[2]);
+                        int age2 = 2024 - Integer.parseInt(s2.getDateOfBirth().trim().split("/")[2]);
+                        return Integer.compare(age1, age2);
+                    });
+                    //Display student's list after sort by age
+                    displayStudentList();
+                    break;
+                case 4:
+                //Sort by GPA method
+                    studentList.sort((Student b1, Student b2) -> b1.getGPA().compareTo(b2.getGPA()));
+                    //Display student's list after sort by GPA
+                    displayStudentList();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while (sortChoice != 4); //Loop until user enter a number different from 4
+    }
+
+    //Function sortStudentDescending
+    private static void sortStudentsDescending() {
+        Scanner scanner = new Scanner(System.in);
+        int sortChoice;
+
+        do {
+            //Display menu
+            System.out.println("Sort by:");
+            System.out.println("1. ID");
+            System.out.println("2. Name");
+            System.out.println("3. Age");
+            System.out.println("4. GPA");
+            System.out.print("Enter your choice: ");
+
+            //Input choice
+            sortChoice = scanner.nextInt();
+
+            switch (sortChoice) {
+                case 1:
+                //Sort by ID method
+                    studentList.sort((Student b1, Student b2) -> b2.getId().compareTo(b1.getId()));
+                    //Display student's list after sort by ID
+                    displayStudentList();
+                    break;
+                case 2:
+                //Sort by name method
+                    studentList.sort((Student b1, Student b2) -> b2.getName().compareTo(b1.getName()));
+                    //Display student's list after sort by name
+                    displayStudentList();
+                    break;
+                case 3:
+                //Sort by age method
+                    studentList.sort((s1, s2) -> {
+                        int age1 = 2024 - Integer.parseInt(s1.getDateOfBirth().trim().split("/")[2]);
+                        int age2 = 2024 - Integer.parseInt(s2.getDateOfBirth().trim().split("/")[2]);
+                        return Integer.compare(age2, age1);
+                    });
+                    //Display student's list after sort by age
+                    displayStudentList();
+                    break;
+                case 4:
+                //Sort by GPA method
+                    studentList.sort((Student b1, Student b2) -> b2.getGPA().compareTo(b1.getGPA()));
+                    //Display student's list after sort by GPA
+                    displayStudentList();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+
+        } while (sortChoice != 4); //Loop until user enter a number different from 4
+    }
+
+    //FUunction displayStudentList
+    private static void displayStudentList() {
+        System.out.println(
+                "------------------------------------------------------------------- STUDENT LIST -------------------------------------------------------------------");
+        System.out.println(
+                "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  MAD  |  OSG  |  NWC  |  PRO  |  SSG  |  GPA  |");
+        System.out.println(
+                "+-----+--------------------------+----------+------------------+---------------------------+-------------+-------+-------+-------+-------+-------+-------+");
+
+        //Loop to display student's list
+        for (int i = 0; i < studentList.size(); i++) {
+            Student student = studentList.get(i);
+            System.out.printf("| %-4d", i + 1);
+            student.showAllInfo();
+            System.out.println(
+                    "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
         }
-        while (choice != 3);
-    }
-
-    private static void sortStudentsAscending(ArrayList<Student> students) {
-        System.out.println("Sort by:");
-        System.out.println("1. ID");
-        System.out.println("2. Name");
-        System.out.println("3. Age");
-        System.out.println("4. GPA");
-        System.out.print("Enter your choice: ");
-
-        // int sortChoice = sc.nextInt();
-
-        // switch (sortChoice) {
-        // case 1:
-        // students.sort(Comparator.comparing(Student::getId));
-        // break;
-        // case 2:
-        // students.sort(Comparator.comparing(Student::getName));
-        // break;
-        // case 3:
-        // students.sort(Comparator.comparing(Student::getAge));
-        // break;
-        // case 4:
-        // students.sort(Comparator.comparing(Student::getGpa));
-        // break;
-        // default:
-        // System.out.println("Invalid choice.");
-        // }
-
-        // System.out.println("Students sorted in ascending order.");
-    }
-
-    private static void sortStudentsDescending(ArrayList<Student> students) {
-        System.out.println("Sort by:");
-        System.out.println("1. ID");
-        System.out.println("2. Name");
-        System.out.println("3. Age");
-        System.out.println("4. GPA");
-        System.out.print("Enter your choice: ");
-
-        // int sortChoice = scanner.nextInt();
-        //
-        // switch (sortChoice) {
-        // case 1:
-        // students.sort(Comparator.comparing(Student::getId).reversed());
-        // break;
-        // case 2:
-        // students.sort(Comparator.comparing(Student::getName).reversed());
-        // break;
-        // case 3:
-        // students.sort(Comparator.comparing(Student::getAge).reversed());
-        // break;
-        // case 4:
-        // students.sort(Comparator.comparing(Student::getGpa).reversed());
-        // break;
-        // default:
-        // System.out.println("Invalid choice.");
-        // }
-        //
-        // System.out.println("Students sorted in descending order.");
     }
 
     public static void searchStudent() {
@@ -255,7 +331,6 @@ public class StudentManagement{
     // list, i.e., we cannot make studentList point to a different list.
     // However, we can still modify the contents of the list, such as adding,
     // removing, or sorting the elements.
-    private static final List<Student> studentList = new ArrayList<>();
 
     public static void showAllStudent() {
         System.out.println("------------------------------------------------------------------- SHOW ALL STUDENTS -------------------------------------------------------------------+");
