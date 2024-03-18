@@ -1,13 +1,16 @@
+//import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+
 
 public class Student extends Person implements GPACalculate{
     private Double GPA;
     private List<Double> subjectScores; // List to store scores of 5 subjects
 
-    public Student(String name, String id, String dateOfBirth, String email, String phoneNumber, Double GPA, List<Double> subjectScores) {
+    public Student(String name, String id, String dateOfBirth, String email, String phoneNumber, List<Double> subjectScores, Double GPA) {
         super(name, id, dateOfBirth, email, String.valueOf(phoneNumber));
-        this.GPA = GPA;
         this.subjectScores = subjectScores;
+        this.GPA = GPA;
     }
 
     public Double getGPA() {
@@ -16,10 +19,6 @@ public class Student extends Person implements GPACalculate{
 
     public void setGPA(Double GPA) {
         this.GPA = GPA;
-    }
-
-    public List<Double> getSubjectScores() {
-        return subjectScores;
     }
 
     @Override
@@ -36,15 +35,26 @@ public class Student extends Person implements GPACalculate{
         return GPACalculate.super.ConvertGPA(score);
     }
 
-    public void setScores(List<Double> scores) {
-        this.subjectScores = scores;
-    }
     @Override
     public void showAllInfo() {
         super.showAllInfo();
-        for (Double score : subjectScores) {
-            System.out.printf(" %-5.2f |", score);
+        for (int i = 0; i < 5; i++) { // Assuming there are 5 subjects
+            if (i < subjectScores.size()) {
+                System.out.printf(" %-5.2f |", subjectScores.get(i));
+            } else {
+                System.out.printf(" %-5s |", "N/A");
+            }
         }
         System.out.printf(" %-5.2f |\n", getGPA());
+    }
+
+    @Override
+    public String toString() {
+        String formattedEmail = String.format("%-30s", getEmail());
+        return "Student{" +
+                super.toString() +
+                ", GPA=" + GPA +
+                ", subjectScores=" + subjectScores +
+                '}';
     }
 }

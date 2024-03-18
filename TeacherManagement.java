@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TeacherManagement {
 
@@ -25,7 +24,6 @@ public class TeacherManagement {
 
             // Input choice
             choice = scanner.nextInt();
-
             switch (choice) {
                 case 1:
                     // Call sortTeachesrAscending method
@@ -53,12 +51,7 @@ public class TeacherManagement {
 
         do {
             // Display menu
-            System.out.println("Sort by:");
-            System.out.println("1. ID");
-            System.out.println("2. Name");
-            System.out.println("3. Age");
-            System.out.println("4. Salary.");
-            System.out.print("Enter your choice: ");
+            Menu.menuSortAsc_DesTeacherMangament();
 
             // Input choice
             sortChoice = scanner.nextInt();
@@ -66,13 +59,13 @@ public class TeacherManagement {
             switch (sortChoice) {
                 case 1:
                     // Sort by ID method
-                    teacherList.sort((Teacher b1, Teacher b2) -> b1.getId().compareTo(b2.getId()));
+                    teacherList.sort(Comparator.comparing(Person::getId));
                     // Display teacher's list after sort by ID
                     displayTeacherList();
                     break;
                 case 2:
                     // Sort by name method
-                    teacherList.sort((Teacher b1, Teacher b2) -> b1.getName().compareTo(b2.getName()));
+                    teacherList.sort(Comparator.comparing(Person::getName));
                     // Display teacher's list after sort by name
                     displayTeacherList();
                     break;
@@ -92,10 +85,15 @@ public class TeacherManagement {
                     // Display teacher's list after sort by salary
                     displayTeacherList();
                     break;
+                case 5:
+                    //Back to the menu sort teacher
+                    sortTeacher();
+                    break;
                 default:
                     System.out.println("Invalid choice.");
             }
         } while (sortChoice != 4); // Loop until user enter a number different from 4
+        writeTeachersToFile("outputTeacher.txt");
     }
 
     // Function sortTeachersDescending
@@ -105,12 +103,7 @@ public class TeacherManagement {
 
         do {
             // Display menu
-            System.out.println("Sort by:");
-            System.out.println("1. ID");
-            System.out.println("2. Name");
-            System.out.println("3. Age");
-            System.out.println("4. Salary.");
-            System.out.print("Enter your choice: ");
+            Menu.menuSortAsc_DesTeacherMangament();
 
             // Input choice
             sortChoice = scanner.nextInt();
@@ -144,39 +137,45 @@ public class TeacherManagement {
                     // Display teacher's list after sort by salary
                     displayTeacherList();
                     break;
+                case 5:
+                    //Back to the menu sort teacher
+                    sortTeacher();
+                    break;
                 default:
                     System.out.println("Invalid choice.");
             }
 
         } while (sortChoice != 4); // Loop until user enter a number different from 4
+        writeTeachersToFile("outputTeacher.txt");
     }
 
     // Function displayTeacherList
     private static void displayTeacherList() {
         System.out.println(
-                "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                "------------------------------------------------------ SHOW ALL Found teachers -----------------------------------------------------+");
         System.out.println(
-                "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
+                "| No. |        Full Name         |    ID    |  Date of birth   |             Email             |    Phone    |  Salary    | Subject |");
         System.out.println(
-                "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+                "+-----+--------------------------+----------+------------------+-------------------------------+-------------+------------+---------+");
         // Loop to display teacher's list
         for (int i = 0; i < teacherList.size(); i++) {
             Teacher teacher = teacherList.get(i);
             System.out.printf("| %-4d", i + 1);
             teacher.showAllInfo();
             System.out.println(
-                    "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\n");
+                "+-----+--------------------------+----------+------------------+-------------------------------+-------------+------------+---------+\n");
         }
     }
 
 
+    // Function search Teacher
     public static void searchTeacher() {
         boolean continueSearch;
         do {
             Scanner sc = new Scanner(System.in);
-
             int choice;
             do {
+                // Display menu search teacher
                 Menu.menuSearchTeacherMangament();
                 try {
                     choice = Integer.parseInt(sc.nextLine().trim());
@@ -198,74 +197,67 @@ public class TeacherManagement {
                 System.out.println("Enter search value:");
                 String searchValue = sc.nextLine().trim();
 
+                // Create a list to store found teachers
                 List<Teacher> foundTeachers = new ArrayList<>();
-
+                // Loop through the teacher list to find the teacher
                 for (Teacher teacher : teacherList) {
                     switch (choice) {
-                        case 1:
-                            if (teacher.getName().equalsIgnoreCase(searchValue)) {
+                        case 1: // Search by name
+                            if (teacher.getName().equalsIgnoreCase(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 2:
-                            if (teacher.getId().equals(searchValue)) {
+                        case 2: // Search by ID
+                            if (teacher.getId().equals(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 3:
+                        case 3: // Search by age
                             // if (teacher.getDateOfBirth().equals(searchValue)) {
                             // foundTeachers.add(teacher);}
                             String[] token;
                             String line = teacher.getDateOfBirth().trim();
+
                             token = line.split("/");
                             String Year = token[2];
+
                             int birthYear = Integer.parseInt(Year);
                             int age = 2024 - birthYear;
-                            if (age == Integer.parseInt(searchValue)) {
+
+                            if (age == Integer.parseInt(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 4:
-                            if (teacher.getPhoneNumber().equalsIgnoreCase(searchValue)) {
+                        case 4: // Search by phone number
+                            if (teacher.getPhoneNumber().equalsIgnoreCase(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 5:
-                            if (teacher.getEmail().equalsIgnoreCase(searchValue)) {
+                        case 5: // Search by email
+                            if (teacher.getEmail().equalsIgnoreCase(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 6:
-                            if (teacher.getSalary() == Long.parseLong(searchValue)) {
+                        case 6: // Search by salary
+                            if (teacher.getSalary() == Long.parseLong(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
-                        case 7:
-                            if (teacher.getSubject().equalsIgnoreCase(searchValue)) {
+                        case 7: // Search by subject
+                            if (teacher.getSubject().equalsIgnoreCase(searchValue))
                                 foundTeachers.add(teacher);
-                            }
                             break;
                         default:
                             System.out.println("Invalid choice.");
                     }
                 }
-
                 if (foundTeachers.isEmpty()) {
                     System.out.println("Teacher not found.");
                 } else {
                     System.out.println(
-                            "-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------+");
-                    System.out.println(
-                            "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
-                    System.out.println(
-                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+                            "-------------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                    System.out.println("| No. |        Full Name         |    ID    |  Date of birth   |           Email            |    Phone    |  Salary    | Subject    |");
+                    System.out.println("+-----+--------------------------+----------+------------------+----------------------------+-------------+------------+------------+");
                     for (int i = 0; i < foundTeachers.size(); i++) {
                         Teacher t = foundTeachers.get(i);
                         System.out.printf("| %-4d|", i + 1);
                         t.showAllInfo();
                     }
-                    System.out.println(
-                            "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+                    System.out.println("+-----+--------------------------+----------+------------------+----------------------------+-------------+------------+------------+");
                 }
                 do {
                     try {
@@ -285,18 +277,15 @@ public class TeacherManagement {
         } while (continueSearch);
     }
 
+    // Function delete Teacher
     public static void deleteTeacher() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("---- DELETE TEACHER ----");
-        System.out.println("1. Delete a teacher.");
-        System.out.println("2. Delete all teachers.");
-        System.out.println("3. Back to main menu.");
-        System.out.print("Enter your choice: ");
-
+        //menu delete teacher
+        Menu.menuDeleteTeacherMangament();
         int choice = scanner.nextInt();
 
         switch (choice) {
-            case 1:
+            case 1: // Option that deletes a teacher
                 System.out.print("Enter the ID of the student you want to delete: ");
                 String studentID = scanner.next().toUpperCase();
                 boolean found = false;
@@ -312,7 +301,7 @@ public class TeacherManagement {
                     }
                 }
                 break;
-            case 2:
+            case 2: //Option that deletes all teachers
                 teacherList.clear();
                 System.out.println("All students have been deleted.");
                 break;
@@ -322,24 +311,23 @@ public class TeacherManagement {
             default:
                 System.out.println("Invalid choice.");
         }
+        writeTeachersToFile("outputTeacher.txt");
     }
 
+    // Function showAllTeachers
     public static void showAllTeachers() {
-        System.out.println(
-                "-------------------------------------------------------- SHOW ALL STUDENTS --------------------------------------------------------+");
-        System.out.println(
-                "| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
-        System.out.println(
-                "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
+        System.out.println("--------------------------------------------------------- SHOW ALL STUDENTS --------------------------------------------------------+");
+        System.out.println("| No. |        Full Name         |    ID    |  Date of birth   |           Email            |    Phone    |  Salary    | Subject    |");
+        System.out.println("+-----+--------------------------+----------+------------------+----------------------------+-------------+------------+------------+");
         for (int i = 0; i < teacherList.size(); i++) {
             Teacher teacher = teacherList.get(i);
             System.out.printf("| %-4d|", i + 1);
             teacher.showAllInfo();
         }
-        System.out.println(
-                "+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
+        System.out.println("+-----+--------------------------+----------+------------------+----------------------------+-------------+------------+------------+");
     }
 
+    // Function add New Teacher
     public static void addNewTeacher() {
         System.out.println("---- ADD NEW TEACHER ----");
         // Using List to store teacher
@@ -375,5 +363,41 @@ public class TeacherManagement {
 
         Teacher newTeacher = new Teacher(fullName, teacherID, dateOfBirth, email, phoneNumber, salary, subject);
         teacherList.add(newTeacher);
+        writeTeachersToFile("outputTeacher.txt");
+    }
+
+    //Function write Teachers To File
+    public static void writeTeachersToFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (Teacher teacher : teacherList) {
+                writer.write(teacher.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to file: " + e.getMessage());
+        }
+    }
+    //Function read Teachers From File
+    public static void readTeachersFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Assuming each line in the file represents a Teacher object
+                // and the fields are separated by a comma
+                String[] fields = line.split(",");
+                // Assuming the fields are in the order: name, id, dateOfBirth, email, phoneNumber, salary, subject
+                String name = fields[0];
+                String id = fields[1];
+                String dateOfBirth = fields[2];
+                String email = fields[3];
+                String phoneNumber = fields[4];
+                Double salary = Double.parseDouble(fields[5]);
+                String subject = fields[6];
+                Teacher teacher = new Teacher(name, id, dateOfBirth, email, phoneNumber, salary, subject);
+                teacherList.add(teacher);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading from file: " + e.getMessage());
+        }
     }
 }

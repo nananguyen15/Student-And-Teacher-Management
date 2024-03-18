@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class UI_Student{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        StudentManagement.readStudentsFromFile("inputStudent.txt");
         // Create an object of BookManagement
         do {
             Menu.menuStudentMangament();
@@ -32,6 +32,7 @@ public class UI_Student{
                     StudentManagement.sortStudent();
                     break;
                 case 6:
+                    StudentManagement.writeStudentsToFile("outputStudent.txt");
                     Menu.exit();
                     break;
                 default:

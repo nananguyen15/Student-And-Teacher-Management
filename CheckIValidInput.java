@@ -61,6 +61,8 @@ public class CheckIValidInput{
                 //Detail: If the person is a teacher, the ID must have FS at first and 6 numbers
                 if (personType.equals("teacher") && !(Pattern.matches("^[FS]{2}\\d{6}$", id)))
                     throw new IllegalArgumentException("Invalid input. The ID must have FS at first and 6 numbers.\nPlease enter again!");
+                // Add the new ID to the set
+                existingIDs.add(id);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -134,7 +136,7 @@ public class CheckIValidInput{
                 cnt++;
                 System.out.println(e.getMessage());
                 if (cnt >= 3) {
-                    System.out.println("You have entered wrong email " + cnt + " times.\nDo you want see the guide to enter email again? (Y/N)");
+                    System.out.print("You have entered wrong email " + cnt + " times.\nDo you want see the guide to enter email again? (Y/N)");
                     String choice = sc.nextLine().toUpperCase();
                     if (personType.equals("student") && choice.equals("Y")) {
                         System.out.println("""
@@ -187,6 +189,7 @@ public class CheckIValidInput{
         return email;
     }
 
+    public static final Set<String> existingPhoneNumber = new HashSet<>();
     //Function to check valid phone number
     public static String checkPhoneNumber(String personType) {
         Scanner sc = new Scanner(System.in);
@@ -197,8 +200,11 @@ public class CheckIValidInput{
                 //Using parseInt to convert the string to an integer
                 phoneNumber = sc.nextLine().trim();
                 //Using regex to check if the phone number has 10 numbers and starts with 0
+                if (existingPhoneNumber.contains(phoneNumber))
+                    throw new IllegalArgumentException("This " + phoneNumber + " already exists!");
                 if (!(Pattern.matches("^0\\d{9}", phoneNumber)))
                     throw new IllegalArgumentException("Invalid input. The phone number must have 10 numbers and start with 0.\nPlease enter again!");
+                existingPhoneNumber.add(phoneNumber);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

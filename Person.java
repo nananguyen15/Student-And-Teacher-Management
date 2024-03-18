@@ -17,44 +17,33 @@ public abstract class Person{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public void showAllInfo() {
-        System.out.printf("| %-24s | %-7s | %-16s | %-25s | %-11s |", name, id, dateOfBirth, email, phoneNumber);
+        System.out.printf("| %-24s | %-8s | %-16s | %-30s| %-11s |", name,id, dateOfBirth, email, phoneNumber);
     }
 
+    public String toString() {
+        return "Student{" +
+                "name='" + getName() + '\'' +
+                ", id='" + getId() + '\'' +
+                ", dateOfBirth='" + getDateOfBirth() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                '}';
+    }
 }
