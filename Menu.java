@@ -28,6 +28,7 @@ public class Menu{
         System.out.println("3. Search by Age.");
         System.out.println("4. Search by phone number.");
         System.out.println("5. Search by GPA.");
+        System.out.println("6. Back to main menu");
         System.out.print("Enter your choice: ");
     }
 
@@ -70,6 +71,7 @@ public class Menu{
         System.out.println("5. Search by Email.");
         System.out.println("6. Search by Salary.");
         System.out.println("7. Search by Subject.");
+        System.out.println("8. Back to main menu");
         System.out.print("Enter your choice: ");
     }
 

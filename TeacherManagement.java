@@ -296,7 +296,7 @@ public class TeacherManagement {
                     }
                     System.out.println(
                             "+-----+--------------------------+----------+------------------+----------------------------+-------------+------------+------------+");
-                }
+                
                 do {
                     try {
                         System.out.print("Do you want to continue searching? (true/false): ");
@@ -312,7 +312,7 @@ public class TeacherManagement {
                         continueSearch = false;
                     }
                 } while (!continueSearch);
-            }
+            }}
         } while (continueSearch);
     }
 

@@ -206,24 +206,29 @@ public class StudentManagement {
         boolean continueSearch;
         do {
             Scanner sc = new Scanner(System.in);
+
             int choice;
             do {
                 Menu.menuSearchStudentMangament();
                 try {
                     choice = Integer.parseInt(sc.nextLine().trim());
-                    if (choice < 1 || choice > 6)
+                    if (choice < 1 || choice > 6) {
                         System.err.println("Invalid choice. Please enter a number between 1 and 6.\n");
+                    }
                 } catch (NumberFormatException e) {
                     System.err.println("Invalid input. Please enter a valid number.\n");
                     choice = -1;
                 }
-            } while (choice < 1 || choice > 6);
+            }
+            while (choice < 1 || choice > 6);
 
             if (choice == 6) {
                 continueSearch = false;
                 break; // Break out of the main search loop to return to the main menu
             } else {
                 continueSearch = true;
+
+
                 System.out.println("Enter search value:");
                 String searchValue = sc.nextLine().trim();
 
@@ -247,59 +252,64 @@ public class StudentManagement {
                             String line = student.getDateOfBirth().trim();
                             token = line.split("/");
                             String Year = token[2];
-
                             int birthYear = Integer.parseInt(Year);
                             int age = 2024 - birthYear;
-
-                            if (age == Integer.parseInt(searchValue))
+                            if (age == Integer.parseInt(searchValue)) {
                                 foundStudents.add(student);
+                            }
+
                             break;
                         case 4:
-                            if (student.getPhoneNumber().equalsIgnoreCase(searchValue))
+                            if (student.getPhoneNumber().equalsIgnoreCase(searchValue)) {
                                 foundStudents.add(student);
+                            }
                             break;
                         case 5:
-                            if (student.getGPA() == Double.parseDouble(searchValue))
+                            if (student.getGPA() == Double.parseDouble(searchValue)) {
                                 foundStudents.add(student);
+                            }
                             break;
                         default:
                             System.out.println("Invalid choice.");
                     }
                 }
 
-                if (foundStudents.isEmpty())
+                if (foundStudents.isEmpty()) {
                     System.out.println("Student not found.");
-                else {
-                    System.out.println(
-                            "----------------------------------------------------------------- SHOW ALL FOUND STUDENTS -------------------------------------------------------------------+");
-                    System.out.println(
-                            "| No. |        Full Name         |    ID    |  Date of birth   |             Email             |    Phone    |  MAD  |  OSG  |  NWC  |  PRO  |  SSG  |  GPA  |");
-                    System.out.println(
-                            "+-----+--------------------------+----------+------------------+-------------------------------+-------------+-------+-------+-------+-------+-------+-------+");
+                } else {
+
+                    System.out.println("-------------------------------------------------------- SHOW ALL Found teachers --------------------------------------------------------+");
+                    System.out.println("| No. |        Full Name         |    ID    |  Date of birth   |           Email           |    Phone    |  Salary    | Subject    |");
+                    System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+");
                     for (int i = 0; i < foundStudents.size(); i++) {
                         Student t = foundStudents.get(i);
                         System.out.printf("| %-4d|", i + 1);
                         t.showAllInfo();
                     }
-                    System.out.println(
-                            "+-----+--------------------------+----------+------------------+-------------------------------+-------------+-------+-------+-------+-------+-------+-------+");
+                    System.out.println("+-----+--------------------------+----------+------------------+---------------------------+-------------+------------+------------+\"");
 
                     do {
                         try {
                             System.out.print("Do you want to continue searching? (true/false): ");
                             continueSearch = sc.nextBoolean();
-                            if (!continueSearch)
+                            if (!continueSearch) {
                                 break;
+                            }
                             sc.nextLine();
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid input. Please enter either 'true' or 'false'.\n");
+
                             sc.nextLine();
                             continueSearch = false;
                         }
-                    } while (!continueSearch);
+                    }
+                    while (!continueSearch);
+
                 }
             }
-        } while (continueSearch);
+        }
+        while (continueSearch);
+
     }
 
     public static void deleteStudent() {
